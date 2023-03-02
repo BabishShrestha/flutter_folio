@@ -6,8 +6,8 @@ void main() {
 
 void performTasks() async {
   task1();
-  // print(await task2());
-  task3(await task2());
+  print(await task2());
+  // task3(await task2());
 }
 
 void task1() {
