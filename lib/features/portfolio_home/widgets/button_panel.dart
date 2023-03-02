@@ -1,5 +1,4 @@
 import 'dart:developer' as dev;
-import 'dart:math';
 
 import 'package:flutter/material.dart';
 
@@ -16,53 +15,79 @@ class _ButtonPanelState extends State<ButtonPanel> {
   Color? followBGColor = Colors.grey[200];
   @override
   Widget build(BuildContext context) {
-    dev.log("First Color: ${followBGColor.toString()}");
     return Row(
-      // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        // Expanded(
-        //   child: ProfileButton(
-        //     buttonText: 'Hire Me',
-        //     buttonColor: Colors.blue[900],
-        //     textColor: Colors.white,
-        //     child: null,
-        //   ),
-        // ),
+        Expanded(
+          child: profileButton(
+            defaultButtonColor: Colors.blue[900] as Color,
+            textColor: Colors.white,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: const [
+                Icon(Icons.add),
+                Text('Hire Me'),
+              ],
+            ),
+          ),
+        ),
         const SizedBox(width: 10),
         // Expanded(
-        //   child: ProfileButton('Follow', Colors.grey[200], Colors.black),
+        //   child: profileButton(
+        //       // defaultButtonColor: Colors.grey[200] as Color,
+        //       textColor: Colors.black,
+        //       child: const Text(
+        //         'Follow',
+        //         style: TextStyle(color: Colors.black),
+        //       )),
         // ),
         SecondButtonWidget(
-          followBGColor: Colors.grey[200],
+          defaultColor: Colors.grey[200] as Color,
+          onPressedColor: Colors.pink,
         ),
-        
       ],
     );
   }
 
-  ElevatedButton ProfileButton(
-      {Color? buttonColor, required Color textColor, required Widget child}) {
+  ElevatedButton profileButton(
+      {Color defaultButtonColor = const Color(0xffd4d4d4),
+      Color onPressedColor = Colors.blue,
+      required Color textColor,
+      required Widget child}) {
+    Color? buttonColor;
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
           // fixedSize: Size(200, 40),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
           backgroundColor: buttonColor),
-      onPressed: () {},
+      onPressed: () {
+        setState(() {
+          if (buttonColor == defaultButtonColor) {
+            buttonColor = onPressedColor;
+          } else {
+            buttonColor = defaultButtonColor;
+          }
+        });
+      },
       child: child,
     );
   }
 }
 
 class SecondButtonWidget extends StatefulWidget {
-  Color? followBGColor;
-  SecondButtonWidget({super.key, this.followBGColor});
+  final Color defaultColor;
+  final Color onPressedColor;
+  const SecondButtonWidget(
+      {super.key,
+      this.defaultColor = Colors.grey,
+      this.onPressedColor = Colors.blue});
 
   @override
   State<SecondButtonWidget> createState() => _SecondButtonWidgetState();
 }
 
 class _SecondButtonWidgetState extends State<SecondButtonWidget> {
+  Color? buttonColor = Colors.grey[200];
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -70,19 +95,19 @@ class _SecondButtonWidgetState extends State<SecondButtonWidget> {
         style: ElevatedButton.styleFrom(
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: widget.followBGColor),
+            backgroundColor: buttonColor),
         onPressed: () {
           setState(() {
             // followBGColor =
             //     followBGColor == Colors.red ? Colors.grey[200] : Colors.red;
 
-            if (widget.followBGColor == Colors.red) {
-              widget.followBGColor = Colors.grey[200];
+            if (buttonColor == widget.defaultColor) {
+              buttonColor = widget.onPressedColor;
             } else {
-              widget.followBGColor = Colors.red;
+              buttonColor = widget.defaultColor;
             }
           });
-          dev.log("Second Color ${widget.followBGColor.toString()}");
+          dev.log("Second Color ${widget.defaultColor.toString()}");
         },
         child: const Padding(
           padding: EdgeInsets.symmetric(horizontal: 12.0),

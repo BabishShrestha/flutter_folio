@@ -1,10 +1,10 @@
-
 import 'package:flutter/material.dart';
 
 class ProfileHeader extends StatelessWidget {
-
+  final bool hideCloseButton;
   const ProfileHeader({
-    super.key, 
+    super.key,
+    this.hideCloseButton = false,
   });
 
   @override
@@ -44,7 +44,7 @@ class ProfileHeader extends StatelessWidget {
         // SizedBox(
         //   width: 180,
         // ),
-        const Icon(Icons.close)
+        hideCloseButton ? const SizedBox() : const Icon(Icons.close)
       ],
     );
   }

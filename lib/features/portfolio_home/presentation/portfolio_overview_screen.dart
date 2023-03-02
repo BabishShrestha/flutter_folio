@@ -1,8 +1,8 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../portfolio_details/portfolio_details_screen.dart';
 import '../widgets/portfolio_home.dart';
 
 class FlutterFolioHome extends StatelessWidget {
@@ -16,45 +16,177 @@ class FlutterFolioHome extends StatelessWidget {
       // ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 18.0, horizontal: 30),
+          padding: const EdgeInsets.all(18.0),
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 300),
+            child: LayoutBuilder(builder: (context, constraints) {
+              if (constraints.maxWidth > 600) {
+                return const LandscapeOverviewWIdget();
+              } else {
+                return const PotraitOverviewWidget();
+              }
+            }),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class LandscapeOverviewWIdget extends StatelessWidget {
+  const LandscapeOverviewWIdget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: const [
+              ProfileHeader(
+                hideCloseButton: true,
+              ),
+              TextLabel(),
+              // const ButtonPanel(),
+            ],
+          ),
+        ),
+        const SizedBox(
+          width: 20,
+        ),
+        // const Divider(
+        //   height: 10,
+        // ),
+        // Title
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ProfileHeader(),
-              TextLabel(),
-
-              ButtonPanel(),
-              // Title
               Text(
                 'My Works',
                 style: GoogleFonts.poppins(
                     fontSize: 20, fontWeight: FontWeight.bold),
               ),
-              ListTile(
-                  leading: Icon(Icons.heart_broken),
-                  title: Text("Flutter Folio"),
-                  subtitle: Text('Made with Flutter'),
-                  trailing: SizedBox(
-                    width: 100,
-                    child: Row(
-                      children: [
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.call, color: Colors.green),
-                        ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(Icons.call, color: Colors.red),
-                        )
-                      ],
+              Expanded(
+                child: ListView(
+                  shrinkWrap: true,
+                  physics: const BouncingScrollPhysics(),
+                  children: [
+                    MyWorkCard(
+                      projectTitle: 'Sort Your Bin',
+                      toolImage: UiImagePath.unitySmall,
+                      description:
+                          'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const PortfolioDetailsScreen()));
+                      },
                     ),
-                  )),
-              Spacer(),
-              MyWorkCard(),
+                    MyWorkCard(
+                      projectTitle: 'Solitaire Billionaire',
+                      toolImage: UiImagePath.flutter,
+                      imageHeight: 30,
+                      imageWidth: 30,
+                      description:
+                          'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const PortfolioDetailsScreen()));
+                      },
+                    ),
+                    MyWorkCard(
+                      projectTitle: 'SmartBin',
+                      toolImage: UiImagePath.unitySmall,
+                      description:
+                          'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) =>
+                                const PortfolioDetailsScreen()));
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
-      ),
+        // My Work list
+      ],
+    );
+  }
+}
+
+class PotraitOverviewWidget extends StatelessWidget {
+  const PotraitOverviewWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.max,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const ProfileHeader(),
+        const TextLabel(),
+        const ButtonPanel(),
+        // Title
+        Text(
+          'My Works',
+          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+        ),
+        // My Work list
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.5,
+          child: ListView(
+            // shrinkWrap: true,
+            physics: const BouncingScrollPhysics(),
+            children: [
+              MyWorkCard(
+                projectTitle: 'Sort Your Bin',
+                toolImage: UiImagePath.unitySmall,
+                description:
+                    'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PortfolioDetailsScreen()));
+                },
+              ),
+              MyWorkCard(
+                projectTitle: 'Solitaire Billionaire',
+                toolImage: UiImagePath.flutter,
+                imageHeight: 30,
+                imageWidth: 30,
+                description:
+                    'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PortfolioDetailsScreen()));
+                },
+              ),
+              MyWorkCard(
+                projectTitle: 'SmartBin',
+                toolImage: UiImagePath.unitySmall,
+                description:
+                    'A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin A Flutter app to sort your bin ',
+                onTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => const PortfolioDetailsScreen()));
+                },
+              ),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
