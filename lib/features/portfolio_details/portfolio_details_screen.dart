@@ -9,6 +9,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Stack(
             alignment: Alignment.bottomCenter,
@@ -34,44 +35,62 @@ class PortfolioDetailsScreen extends StatelessWidget {
               )
             ],
           ),
-          ListView(
-            padding: const EdgeInsets.all(12),
-            shrinkWrap: true,
-            children: [
-              Text(
-                'Tools Used:',
-                style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.normal),
-              ),
-              Row(
-                children: [
-                  Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
+          titleTextLabel(title: 'Tools Used:'),
+          // Tools Used Horizontal List
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height * 0.08,
+            child: ListView(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+              scrollDirection: Axis.horizontal,
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              children: [
+                Row(
+                  children: [
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.asset(
+                        UiImagePath.unitySmall,
+                        // height: 80,
+                        width: 90,
+                      ),
                     ),
-                    child: Image.asset(
-                      UiImagePath.unitySmall,
-                      // height: 80,
-                      width: 90,
+                    Card(
+                      elevation: 4,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: Image.asset(
+                        UiImagePath.vscode,
+                        // height: 80,
+                        width: 100,
+                      ),
                     ),
-                  ),
-                  Card(
-                    elevation: 4,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Image.asset(
-                      UiImagePath.vscode,
-                      // height: 80,
-                      width: 100,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+                  ],
+                ),
+              ],
+            ),
+          ),
+          titleTextLabel(title: 'Project Details:'),
+          SizedBox(
+            height: 200,
+            child: Placeholder(),
           )
         ],
+      ),
+    );
+  }
+
+  Padding titleTextLabel({required String title}) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12),
+      child: Text(
+        title,
+        style: GoogleFonts.poppins(fontSize: 16, fontWeight: FontWeight.normal),
       ),
     );
   }

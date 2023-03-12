@@ -19,8 +19,8 @@ class FlutterFolioHome extends StatelessWidget {
           padding: const EdgeInsets.all(18.0),
           child: AnimatedContainer(
             duration: const Duration(milliseconds: 300),
-            child: LayoutBuilder(builder: (context, constraints) {
-              if (constraints.maxWidth > 600) {
+            child: OrientationBuilder(builder: (context, constraints) {
+              if (constraints == Orientation.landscape) {
                 return const LandscapeOverviewWIdget();
               } else {
                 return const PotraitOverviewWidget();
