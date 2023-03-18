@@ -16,7 +16,7 @@ void task1() {
 }
 
 Future<String> task2() async {
-  Duration threeSeconds = Duration(seconds: 3);
+  Duration threeSeconds = const Duration(seconds: 3);
 
   String? result;
 

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folio/features/portfolio_details/portfolio_details_screen.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MyWorkCard extends StatelessWidget {
