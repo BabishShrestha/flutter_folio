@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
-import 'image_path.dart';
-
 class FullScreenImage extends StatelessWidget {
   final String image;
   const FullScreenImage({super.key, required this.image});

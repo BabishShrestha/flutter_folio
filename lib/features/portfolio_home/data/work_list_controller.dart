@@ -1,0 +1,34 @@
+import 'dart:convert';
+
+import 'package:flutter_folio/features/portfolio_home/data/work_list_impl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+
+final workListControllerProvider =
+    StateNotifierProvider<WorkListController, AsyncValue>(
+  (ref) => WorkListController(
+    workListRepo: ref.watch(workListRepoProvider),
+  ),
+);
+
+class WorkListController extends StateNotifier<AsyncValue> {
+  final WorkListRepo _workListRepo;
+
+  WorkListController({required WorkListRepo workListRepo})
+      : _workListRepo = workListRepo,
+        super(const AsyncValue.loading());
+
+  void getWorkList() async {
+    final successOrFailed = await _workListRepo.getWorkList();
+    if (state is AsyncData && successOrFailed.isRight()) return;
+    state = successOrFailed.fold(
+      (l) => AsyncValue.data(l),
+      (r) => AsyncValue.error(
+        r 
+         
+        ,
+        StackTrace.fromString(''),
+      ),
+    );
+  }
+}

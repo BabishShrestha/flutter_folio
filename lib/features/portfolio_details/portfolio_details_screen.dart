@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../core/utils/fullscreen_image.dart';
+import '../../core/widgets/fullscreen_image.dart';
 
 class PortfolioDetailsScreen extends StatelessWidget {
   const PortfolioDetailsScreen({super.key});

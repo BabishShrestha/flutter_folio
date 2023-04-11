@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
+import 'package:flutter_folio/features/portfolio_home/data/work_list_controller.dart';
+import 'package:flutter_folio/features/portfolio_home/data/work_list_impl.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../portfolio_details/portfolio_details_screen.dart';
@@ -125,10 +128,22 @@ class LandscapeOverviewWIdget extends StatelessWidget {
   }
 }
 
-class PotraitOverviewWidget extends StatelessWidget {
+class PotraitOverviewWidget extends ConsumerStatefulWidget {
   const PotraitOverviewWidget({
     super.key,
   });
+
+  @override
+  ConsumerState<PotraitOverviewWidget> createState() =>
+      _PotraitOverviewWidgetState();
+}
+
+class _PotraitOverviewWidgetState extends ConsumerState<PotraitOverviewWidget> {
+  @override
+  void initState() {
+    ref.read(workListControllerProvider.notifier).getWorkList();
+    super.initState(); 
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,6 +159,12 @@ class PotraitOverviewWidget extends StatelessWidget {
           'My Works',
           style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
         ),
+        ref.watch(workListControllerProvider).maybeWhen(
+            loading: () => const Center(
+                  child: CircularProgressIndicator(),
+                ),
+            data: (posts) => Text(posts[0].title),
+            orElse: () => const Text('Not found')),
         // My Work list
         SizedBox(
           height: MediaQuery.of(context).size.height * 0.5,

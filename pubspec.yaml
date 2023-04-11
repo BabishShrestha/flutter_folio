@@ -20,10 +20,19 @@ dependencies:
   cupertino_icons: ^1.0.2
   google_fonts: ^4.0.3
   photo_view: ^0.14.0
+  dio: ^5.0.3
+  riverpod: ^2.3.2
+  flutter_riverpod: ^2.3.2
+  riverpod_annotation: ^2.0.2
+  build_runner: ^2.3.3
+  equatable: ^2.0.5
+  dartz: ^0.10.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  riverpod_generator: ^2.1.4
+  riverpod_lint: ^1.1.6
 
  
  
@@ -31,6 +40,7 @@ dev_dependencies:
  
  
   flutter_lints: ^2.0.0
+  custom_lint: ^0.3.2
 
 
 
