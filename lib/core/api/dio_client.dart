@@ -6,7 +6,7 @@ import 'interceptors/error_interceptor.dart';
 part 'dio_client.g.dart';
 
 @riverpod
-String baseUrl(BaseUrlRef ref) => 'https://jsonplaceholder.typicode.com';
+String baseUrl(BaseUrlRef ref) => 'http://10.0.2.2:8000/';
 
 @riverpod
 Dio dio(DioRef ref) {

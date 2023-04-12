@@ -3,9 +3,11 @@ import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../core/widgets/fullscreen_image.dart';
+import '../portfolio_home/domain/model/work_model.dart';
 
 class PortfolioDetailsScreen extends StatelessWidget {
-  const PortfolioDetailsScreen({super.key});
+  final WorkModel workDetail;
+  const PortfolioDetailsScreen({super.key, required this.workDetail});
 
   @override
   Widget build(BuildContext context) {

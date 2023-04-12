@@ -20,7 +20,7 @@ class WorkListRepo {
   Future<Either<List<WorkModel>, Failure>> getWorkList() async {
     final response = await _api.request(
       reqType: DioMethod.get,
-      endpoint: '/posts',
+      endpoint: 'works/list',
       authType: AuthType.bearer,
     );
     return response.fold(
