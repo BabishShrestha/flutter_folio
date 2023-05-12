@@ -1,6 +1,8 @@
 import 'dart:developer' as dev;
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ButtonPanel extends StatefulWidget {
   const ButtonPanel({
@@ -17,20 +19,13 @@ class _ButtonPanelState extends State<ButtonPanel> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
-          child: profileButton(
-            defaultButtonColor: Colors.blue[900] as Color,
-            textColor: Colors.white,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: const [
-                Icon(Icons.add),
-                Text('Hire Me'),
-              ],
-            ),
-          ),
+        SecondButtonWidget(
+          defaultColor: Colors.blue[900] as Color,
+          onPressedColor: Colors.blue,
+          buttonText: 'Hire Me',
+          disableColoronTap: true,
         ),
-        const SizedBox(width: 10),
+        const SizedBox(width: kIsWeb ? 30 : 10),
         // Expanded(
         //   child: profileButton(
         //       // defaultButtonColor: Colors.grey[200] as Color,
@@ -40,83 +35,130 @@ class _ButtonPanelState extends State<ButtonPanel> {
         //         style: TextStyle(color: Colors.black),
         //       )),
         // ),
-        SecondButtonWidget(
-          defaultColor: Colors.grey[200] as Color,
-          onPressedColor: Colors.pink,
-        ),
+        const SecondButtonWidget(
+            defaultColor: Colors.grey,
+            onPressedColor: Colors.pink,
+            buttonText: 'Follow'),
       ],
     );
   }
 
-  ElevatedButton profileButton(
-      {Color defaultButtonColor = const Color(0xffd4d4d4),
-      Color onPressedColor = Colors.blue,
-      required Color textColor,
-      required Widget child}) {
-    Color? buttonColor;
-    return ElevatedButton(
-      style: ElevatedButton.styleFrom(
-          // fixedSize: Size(200, 40),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          backgroundColor: buttonColor),
-      onPressed: () {
-        setState(() {
-          if (buttonColor == defaultButtonColor) {
-            buttonColor = onPressedColor;
-          } else {
-            buttonColor = defaultButtonColor;
-          }
-        });
-      },
-      child: child,
-    );
-  }
+//   ElevatedButton profileButton(
+//       {Color defaultButtonColor = const Color(0xffe4d4d4),
+//       Color onPressedColor = Colors.blue,
+//       required Color textColor,
+//       required Widget child}) {
+//     Color? buttonColor;
+//     return ElevatedButton(
+//       style: ElevatedButton.styleFrom(
+//           // fixedSize: Size(200, 40),
+//           shape:
+//               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+//           backgroundColor: buttonColor),
+//       onPressed: () {
+//         setState(() {
+//           if (buttonColor == defaultButtonColor) {
+//             buttonColor = onPressedColor;
+//           } else {
+//             buttonColor = defaultButtonColor;
+//           }
+//         });
+//       },
+//       child: child,
+//     );
+//   }
 }
 
 class SecondButtonWidget extends StatefulWidget {
   final Color defaultColor;
   final Color onPressedColor;
+  final String buttonText;
+  final bool disableColoronTap;
   const SecondButtonWidget(
       {super.key,
-      this.defaultColor = Colors.grey,
-      this.onPressedColor = Colors.blue});
+      required this.defaultColor,
+      this.onPressedColor = Colors.blue,
+      required this.buttonText,
+      this.disableColoronTap = false});
 
   @override
   State<SecondButtonWidget> createState() => _SecondButtonWidgetState();
 }
 
 class _SecondButtonWidgetState extends State<SecondButtonWidget> {
-  Color? buttonColor = Colors.grey[200];
+  Color? buttonColor;
+  @override
+  void initState() {
+    buttonColor = widget.defaultColor;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-            backgroundColor: buttonColor),
-        onPressed: () {
-          setState(() {
-            // followBGColor =
-            //     followBGColor == Colors.red ? Colors.grey[200] : Colors.red;
+    return kIsWeb
+        ? ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                minimumSize: const Size(80, 60),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(5)),
+                backgroundColor: buttonColor),
+            onPressed: () {
+              setState(() {
+                // followBGColor =
+                //     followBGColor == Colors.red ? Colors.grey[200] : Colors.red;
 
-            if (buttonColor == widget.defaultColor) {
-              buttonColor = widget.onPressedColor;
-            } else {
-              buttonColor = widget.defaultColor;
-            }
-          });
-          dev.log("Second Color ${widget.defaultColor.toString()}");
-        },
-        child: const Padding(
-          padding: EdgeInsets.symmetric(horizontal: 12.0),
-          child: Text(
-            'Follow',
-            style: TextStyle(color: Colors.black),
-          ),
-        ),
-      ),
-    );
+                if (buttonColor == widget.defaultColor &&
+                    !widget.disableColoronTap) {
+                  buttonColor = widget.onPressedColor;
+                } else {
+                  buttonColor = widget.defaultColor;
+                }
+              });
+              dev.log("Second Color ${widget.defaultColor.toString()}");
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 12.0),
+              child: Text(
+                widget.buttonText,
+                style: GoogleFonts.lato(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white),
+              ),
+            ),
+          )
+        : Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                  minimumSize: const Size(50, 30),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  backgroundColor: buttonColor),
+              onPressed: () {
+                setState(() {
+                  // followBGColor =
+                  //     followBGColor == Colors.red ? Colors.grey[200] : Colors.red;
+
+                  if (buttonColor == widget.defaultColor &&
+                      !widget.disableColoronTap) {
+                    buttonColor = widget.onPressedColor;
+                  } else {
+                    buttonColor = widget.defaultColor;
+                  }
+                });
+                dev.log("Second Color ${widget.defaultColor.toString()}");
+              },
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Text(
+                  widget.buttonText,
+                  style: GoogleFonts.lato(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white),
+                ),
+              ),
+            ),
+          );
   }
 }

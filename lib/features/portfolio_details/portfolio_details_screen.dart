@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -19,17 +20,28 @@ class PortfolioDetailsScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               TextButton(
-                  style: TextButton.styleFrom(padding: const EdgeInsets.all(0)),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            // ignore: prefer_const_constructors
-                            builder: (context) => FullScreenImage(
-                                  image: UiImagePath.sortYourBinLogo,
-                                )));
-                  },
-                  child: Image.asset(UiImagePath.sortYourBinLogo)),
+                style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(0),
+                ),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      // ignore: prefer_const_constructors
+                      builder: (context) =>
+                          FullScreenImage(image: workDetail.projectImg
+                              // image: UiImagePath.sortYourBinLogo,
+                              ),
+                    ),
+                  );
+                },
+                child: CachedNetworkImage(
+                  imageUrl: workDetail.projectImg,
+                  fit: BoxFit.cover,
+                  width: MediaQuery.of(context).size.width,
+                  height: MediaQuery.of(context).size.height * 0.5,
+                ),
+              ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.08,
                 width: MediaQuery.of(context).size.width,
@@ -42,7 +54,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
                 ),
                 child: Center(
                   child: Text(
-                    'Sort Your Bin',
+                    workDetail.projectTitle,
                     style: GoogleFonts.poppins(
                         fontSize: 16, fontWeight: FontWeight.normal),
                   ),
@@ -64,7 +76,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
 
           Expanded(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(vertical: 20),
+              padding: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
               physics: const BouncingScrollPhysics(),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
@@ -75,7 +87,6 @@ class PortfolioDetailsScreen extends StatelessWidget {
                     width: MediaQuery.of(context).size.width,
                     height: MediaQuery.of(context).size.height * 0.08,
                     child: ListView(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       scrollDirection: Axis.horizontal,
                       physics: const BouncingScrollPhysics(),
                       shrinkWrap: true,
@@ -114,9 +125,9 @@ class PortfolioDetailsScreen extends StatelessWidget {
                   ),
 
                   titleTextLabel(title: 'Project Details:'),
-                  const Text(
-                    'Worem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum.Worem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulputate libero et velit interdum..',
-                    textAlign: TextAlign.center,
+                  Text(
+                    workDetail.projectDesc,
+                    textAlign: TextAlign.justify,
                   ),
                   const SizedBox(
                     height: 20,

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -12,7 +13,7 @@ class FullScreenImage extends StatelessWidget {
         height: MediaQuery.of(context).size.height,
         width: MediaQuery.of(context).size.width,
         child: PhotoView(
-          imageProvider:  AssetImage(image),
+          imageProvider:  CachedNetworkImageProvider(image),
           initialScale: PhotoViewComputedScale.contained,
           minScale: PhotoViewComputedScale.contained * 0.9,
           maxScale: PhotoViewComputedScale.covered * 3,

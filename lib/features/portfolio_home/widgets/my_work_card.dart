@@ -26,7 +26,10 @@ class MyWorkCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: const EdgeInsets.symmetric(vertical: 8),
+      margin: const EdgeInsets.symmetric(
+        vertical: 8,
+      ),
+
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
@@ -39,7 +42,7 @@ class MyWorkCard extends StatelessWidget {
         //       builder: (context) => const PortfolioDetailsScreen()));
         // },
         child: Padding(
-          padding: const EdgeInsets.all(12.0),
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 20),
           child: Column(
             mainAxisSize: MainAxisSize.max,
             crossAxisAlignment: CrossAxisAlignment.start,

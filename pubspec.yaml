@@ -27,6 +27,9 @@ dependencies:
   build_runner: ^2.3.3
   equatable: ^2.0.5
   dartz: ^0.10.1
+  cached_network_image: ^3.2.3
+  responsive_builder: ^0.6.4
+  url_launcher: ^6.1.11
 
 dev_dependencies:
   flutter_test:

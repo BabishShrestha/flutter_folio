@@ -40,4 +40,27 @@ class WorkListRepo {
       },
     );
   }
+  Future<Either<List<WorkModel>, Failure>> addWorkToPortfoilio() async {
+    final response = await _api.request(
+      reqType: DioMethod.post,
+      endpoint: 'works/add',
+      authType: AuthType.bearer, 
+    );
+    return response.fold(
+      (l) async {
+        final List<WorkModel> workList =
+            (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
+        // await cacheBestRecord(bestStatModel: response);
+        return Left(workList);
+      },
+      (r) async {
+        // final response = await getWorkListFromCache();
+        // if (response != null) {
+        //   _ref.read(bestDataState.notifier).state = response;
+        // }
+
+        return Right(r);
+      },
+    );
+  }
 }
