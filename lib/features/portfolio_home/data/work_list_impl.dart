@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/api/dio_helper.dart';
 import '../../../core/api/dio_util.dart';
+import '../../../core/api/success.dart';
 import '../../../core/failure.dart';
 import '../domain/model/work_model.dart';
 
@@ -25,8 +26,9 @@ class WorkListRepo {
     );
     return response.fold(
       (l) async {
-        final List<WorkModel> workList =
-            (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
+        final List<WorkModel> workList = (l.data as List<dynamic>)
+            .map((e) => WorkModel.fromJson(e))
+            .toList();
         // await cacheBestRecord(bestStatModel: response);
         return Left(workList);
       },
@@ -40,18 +42,33 @@ class WorkListRepo {
       },
     );
   }
-  Future<Either<List<WorkModel>, Failure>> addWorkToPortfoilio() async {
+
+  Future<Either<Success, Failure>> addWorkToPortfoilio(
+      WorkModel work) async {
     final response = await _api.request(
       reqType: DioMethod.post,
       endpoint: 'works/add',
-      authType: AuthType.bearer, 
+      authType: AuthType.bearer,
+      reqBody: {
+        "id": work.id,
+        "project_id": work.projectId,
+        "project_title": work.projectTitle,
+        "project_desc": work.projectDesc,
+        "project_img": work.projectImg,
+        "tools_used": work.toolsUsed,
+        "playstore_link": work.playstoreLink,
+
+
+      }
     );
     return response.fold(
       (l) async {
-        final List<WorkModel> workList =
-            (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
+        final success=Success.fromJson(l.data);
+        // final List<WorkModel> workList =
+        //     (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
+        
         // await cacheBestRecord(bestStatModel: response);
-        return Left(workList);
+        return Left(success);
       },
       (r) async {
         // final response = await getWorkListFromCache();

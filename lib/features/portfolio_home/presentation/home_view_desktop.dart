@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folio/core/utils/font.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -16,8 +17,10 @@ class HomeViewDesktop extends ConsumerStatefulWidget {
 
 class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
   @override
+  
   void initState() {
     ref.read(workListControllerProvider.notifier).getWorkList();
+
     super.initState();
   }
 
@@ -65,6 +68,7 @@ class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
                       ),
                       // Social links
                       SocialLinkWidget(),
+
                     ]),
               ),
             ),
@@ -122,7 +126,7 @@ class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
   Text titleText({required String title}) {
     return Text(
       title,
-      style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+      style: GoogleFonts.poppins(fontSize: FontSize.medium, fontWeight: FontWeight.bold),
     );
   }
 }

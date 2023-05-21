@@ -8,7 +8,7 @@ part 'dio_client.g.dart';
 
 @riverpod
 String baseUrl(BaseUrlRef ref) =>
-    kIsWeb ? 'http://localhost:8000/' : 'http://192.168.1.67:8000/';
+    kIsWeb ? 'http://localhost:8000/' : 'http://192.168.1.66:8000/';
 
 @riverpod
 Dio dio(DioRef ref) {

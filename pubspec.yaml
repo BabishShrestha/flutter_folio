@@ -30,6 +30,7 @@ dependencies:
   cached_network_image: ^3.2.3
   responsive_builder: ^0.6.4
   url_launcher: ^6.1.11
+  path_provider_foundation: ^2.2.3
 
 dev_dependencies:
   flutter_test:

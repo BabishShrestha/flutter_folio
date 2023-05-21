@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/utils/font.dart';
 import '../../../core/utils/image_path.dart';
 import '../../portfolio_details/portfolio_details_screen.dart';
 import '../data/work_list_controller.dart';
@@ -43,7 +44,7 @@ class HomeViewTablet extends StatelessWidget {
               Text(
                 'My Works',
                 style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.bold),
+                    fontSize: FontSize.medium, fontWeight: FontWeight.bold),
               ),
               Consumer(
                 builder: (context, ref, child) =>

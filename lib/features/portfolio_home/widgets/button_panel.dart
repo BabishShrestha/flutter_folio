@@ -4,6 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/utils/font.dart';
+
 class ButtonPanel extends StatefulWidget {
   const ButtonPanel({
     super.key,
@@ -121,7 +123,7 @@ class _SecondButtonWidgetState extends State<SecondButtonWidget> {
               child: Text(
                 widget.buttonText,
                 style: GoogleFonts.lato(
-                    fontSize: 20,
+                    fontSize: FontSize.medium,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
               ),
@@ -153,7 +155,7 @@ class _SecondButtonWidgetState extends State<SecondButtonWidget> {
                 child: Text(
                   widget.buttonText,
                   style: GoogleFonts.lato(
-                      fontSize: 20,
+                      fontSize: FontSize.medium,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),

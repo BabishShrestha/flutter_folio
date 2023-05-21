@@ -39,6 +39,7 @@
 
 class WorkModel {
     WorkModel({
+         this.id,
         required this.projectId,
         required this.projectTitle,
         required this.projectImg,
@@ -46,7 +47,7 @@ class WorkModel {
         required this.toolsUsed,
         required this.playstoreLink,
     });
-
+    final String? id;
     final String projectId;
     final String projectTitle;
     final String projectImg;
@@ -57,6 +58,7 @@ class WorkModel {
 
 
     factory WorkModel.fromJson(Map<String, dynamic> json) => WorkModel(
+        // id: json["id"],
         projectId: json["project_id"],
         projectTitle: json["project_title"],
         projectImg: json["project_img"],

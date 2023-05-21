@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/utils/font.dart';
 import '../../../core/utils/image_path.dart';
 import '../../portfolio_details/portfolio_details_screen.dart';
 import '../data/work_list_controller.dart';
+import '../domain/model/work_model.dart';
 import '../widgets/portfolio_home.dart';
 
 class HomeViewMobile extends ConsumerStatefulWidget {
@@ -23,6 +25,21 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
     super.initState();
   }
 
+  final work = WorkModel(
+      id: '004',
+      projectId: '4',
+      projectTitle: 'Test',
+      projectImg:
+          'https://www.pexels.com/photo/red-cabrio-car-driving-in-the-desert-16307711/',
+      projectDesc:
+          'lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet lorem ipsum dolor sit amet',
+      toolsUsed: [
+        'Flutter',
+        'Dart',
+        'Firebase',
+        'Adobe XD',
+      ],
+      playstoreLink: 'https://www.pexels.com');
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -32,10 +49,18 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
         const ProfileHeader(),
         const TextLabel(),
         const ButtonPanel(),
+        // ref.watch(workListControllerProvider).when(data: )
+        TextButton(
+          onPressed: () {
+            ref.read(workListControllerProvider.notifier).addWork(work);
+            
+          },
+          child: const Text('Add'),
+        ),
         // Title
         Text(
           'My Works',
-          style: GoogleFonts.poppins(fontSize: 20, fontWeight: FontWeight.bold),
+          style: GoogleFonts.poppins(fontSize: FontSize.medium, fontWeight: FontWeight.bold),
         ),
         // My Work list
         ref.watch(workListControllerProvider).maybeWhen(
@@ -43,8 +68,7 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
                 child: CircularProgressIndicator(),
               ),
               data: (posts) {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
+                return Expanded(
                   child: ListView.builder(
                     itemCount: posts.length,
                     shrinkWrap: true,

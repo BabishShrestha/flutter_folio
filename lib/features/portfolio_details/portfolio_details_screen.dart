@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/utils/font.dart';
 import '../../core/widgets/fullscreen_image.dart';
 import '../portfolio_home/domain/model/work_model.dart';
 
@@ -56,7 +57,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
                   child: Text(
                     workDetail.projectTitle,
                     style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.normal),
+                        fontSize: FontSize.small, fontWeight: FontWeight.normal),
                   ),
                 ),
               ),

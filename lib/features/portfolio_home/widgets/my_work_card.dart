@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/utils/font.dart';
+
 class MyWorkCard extends StatelessWidget {
   final VoidCallback? onTap;
 
@@ -52,7 +54,7 @@ class MyWorkCard extends StatelessWidget {
                 projectTitle,
                 // 'Sort Your Bin',
                 style: GoogleFonts.poppins(
-                    fontSize: 20, fontWeight: FontWeight.bold),
+                    fontSize: FontSize.medium, fontWeight: FontWeight.bold),
               ),
               // Programming Language
               Row(
@@ -60,7 +62,7 @@ class MyWorkCard extends StatelessWidget {
                   Text(
                     'Made With: ',
                     style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.normal),
+                        fontSize: FontSize.small, fontWeight: FontWeight.normal),
                   ),
                   Image.asset(
                     toolImage,
@@ -77,7 +79,7 @@ class MyWorkCard extends StatelessWidget {
                 textAlign: TextAlign.justify,
                 overflow: TextOverflow.ellipsis,
                 style: GoogleFonts.poppins(
-                    fontSize: 16, fontWeight: FontWeight.normal),
+                    fontSize: FontSize.small, fontWeight: FontWeight.normal),
               ),
               // read more Button
               TextButton(
@@ -85,7 +87,7 @@ class MyWorkCard extends StatelessWidget {
                   child: Text(
                     'ReadMore >>',
                     style: GoogleFonts.poppins(
-                        fontSize: 16, fontWeight: FontWeight.normal),
+                        fontSize: FontSize.small, fontWeight: FontWeight.normal),
                   ))
             ],
           ),

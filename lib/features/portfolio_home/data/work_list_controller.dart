@@ -1,6 +1,8 @@
 import 'package:flutter_folio/features/portfolio_home/data/work_list_impl.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../domain/model/work_model.dart';
+
 
 final workListControllerProvider =
     StateNotifierProvider<WorkListController, AsyncValue>(
@@ -24,6 +26,18 @@ class WorkListController extends StateNotifier<AsyncValue> {
       (r) => AsyncValue.error(
         r 
          
+        ,
+        StackTrace.fromString(''),
+      ),
+    );
+  }
+  void addWork(WorkModel work) async{
+    final successOrFailed = await _workListRepo.addWorkToPortfoilio(work);
+    if (state is AsyncData && successOrFailed.isRight()) return;
+    state = successOrFailed.fold(
+      (l) => AsyncValue.data(l),
+      (r) => AsyncValue.error(
+        r 
         ,
         StackTrace.fromString(''),
       ),
