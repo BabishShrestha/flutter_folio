@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../../core/utils/colors_ui.dart';
 import '../../../core/utils/font.dart';
 
 class TextLabel extends StatelessWidget {
@@ -30,14 +31,14 @@ class TextLabel extends StatelessWidget {
                       'Associate Software Developer',
                       style: GoogleFonts.poppins(
                           fontSize: FontSize.large,
-                          color: Colors.grey,
+                          color: UIColors.bgtextColor,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '@Flutter Folio',
                       style: GoogleFonts.poppins(
                           fontSize: FontSize.large,
-                          color: Colors.black87,
+                          color: UIColors.highlighttextColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -50,14 +51,14 @@ class TextLabel extends StatelessWidget {
                       'Associate Software Developer',
                       style: GoogleFonts.poppins(
                           fontSize: FontSize.xXSmall,
-                          color: Colors.grey,
+                          color: UIColors.bgtextColor,
                           fontWeight: FontWeight.bold),
                     ),
                     Text(
                       '@Flutter Folio',
                       style: GoogleFonts.poppins(
                           fontSize: FontSize.xXSmall,
-                          color: Colors.black87,
+                          color: UIColors.highlighttextColor,
                           fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -93,7 +94,7 @@ class TextLabel extends StatelessWidget {
           textScaleFactor: MediaQuery.of(context).textScaleFactor * 0.9,
           style: GoogleFonts.poppins(
             fontSize: isWeb ? 24 : 14,
-            color: Colors.grey,
+            color: UIColors.bgtextColor,
           ),
         ),
       ],

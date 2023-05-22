@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/utils/font.dart';
 import '../../../core/utils/image_path.dart';
@@ -60,7 +59,7 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
         // Title
         Text(
           'My Works',
-          style: GoogleFonts.poppins(fontSize: FontSize.medium, fontWeight: FontWeight.bold),
+          style: FontStyle().poppinsMedium ,
         ),
         // My Work list
         ref.watch(workListControllerProvider).maybeWhen(

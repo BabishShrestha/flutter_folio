@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
+import 'package:flutter_folio/features/portfolio_add/presentation/add_work_view_mobile.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
 import 'home_view_tablet.dart';
@@ -15,10 +16,9 @@ class FlutterFolioHome extends StatelessWidget {
         child: const Icon(Icons.add),
         // backgroundColor: Colors.blue,
         onPressed: () {
-          showDialog(
-            context: context,
-            builder: (context) => const PopUpDialogBox(),
-          );
+          Navigator.of(context).push(MaterialPageRoute(
+            builder: (context) => const AddWorkScreen(),
+          ));
         },
       ),
       body: SafeArea(
@@ -46,17 +46,17 @@ class FlutterFolioHome extends StatelessWidget {
   }
 }
 
-class PopUpDialogBox extends StatelessWidget {
-  const PopUpDialogBox({super.key});
+// class PopUpDialogBox extends StatelessWidget {
+//   const PopUpDialogBox({super.key});
 
-  @override
-  Widget build(BuildContext context) {
-    return const AlertDialog(
-      content: Column(mainAxisSize: MainAxisSize.min, children: [
-        Text('Project Title:'),
-        Text('Project Tools:'),
-        Text('Project Description:'),
-      ]),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return const AlertDialog(
+//       content: Column(mainAxisSize: MainAxisSize.min, children: [
+//         Text('Project Title:'),
+//         Text('Project Tools:'),
+//         Text('Project Description:'),
+//       ]),
+//     );
+//   }
+// }

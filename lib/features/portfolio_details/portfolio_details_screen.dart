@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../../core/utils/colors_ui.dart';
 import '../../core/utils/font.dart';
 import '../../core/widgets/fullscreen_image.dart';
 import '../portfolio_home/domain/model/work_model.dart';
@@ -51,7 +52,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
                     topLeft: Radius.circular(30),
                     topRight: Radius.circular(30),
                   ),
-                  color: Colors.white,
+                  color: UIColors.primaryColor,
                 ),
                 child: Center(
                   child: Text(
@@ -65,7 +66,7 @@ class PortfolioDetailsScreen extends StatelessWidget {
                 top: 20,
                 left: 10,
                 child: IconButton(
-                    color: Colors.white,
+                    color: UIColors.primaryColor,
                     iconSize: 30,
                     onPressed: () {
                       Navigator.pop(context);

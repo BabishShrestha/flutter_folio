@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folio/core/utils/colors_ui.dart';
 
 class ProfileHeader extends StatelessWidget {
   final bool hideCloseButton;
@@ -31,7 +32,7 @@ class ProfileHeader extends StatelessWidget {
               width: 30,
               height: 30,
               decoration: const BoxDecoration(
-                color: Colors.blue,
+                color: UIColors.buttonColor,
                 shape: BoxShape.circle,
               ),
               child: const Icon(
