@@ -48,7 +48,7 @@ class HomeViewTablet extends StatelessWidget {
               ),
               Consumer(
                 builder: (context, ref, child) =>
-                    ref.watch(workListControllerProvider).maybeWhen(
+                    ref.watch(getWorkListController).maybeWhen(
                           loading: () => const Center(
                             child: CircularProgressIndicator(),
                           ),

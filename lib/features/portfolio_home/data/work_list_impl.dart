@@ -1,9 +1,10 @@
 import 'package:dartz/dartz.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/api/dio_helper.dart';
 import '../../../core/api/dio_util.dart';
-import '../../../core/api/success.dart';
+import '../../../core/entities/api_base_response.dart';
 import '../../../core/failure.dart';
 import '../domain/model/work_model.dart';
 
@@ -43,30 +44,58 @@ class WorkListRepo {
     );
   }
 
-  Future<Either<Success, Failure>> addWorkToPortfoilio(
+  Future<Either<ApiBaseResponse, Failure>> addWorkToPortfoilio(
       WorkModel work) async {
     final response = await _api.request(
-      reqType: DioMethod.post,
-      endpoint: 'works/add',
-      authType: AuthType.bearer,
-      reqBody: {
-        "id": work.id,
-        "project_id": work.projectId,
-        "project_title": work.projectTitle,
-        "project_desc": work.projectDesc,
-        "project_img": work.projectImg,
-        "tools_used": work.toolsUsed,
-        "playstore_link": work.playstoreLink,
-
-
-      }
-    );
+        reqType: DioMethod.post,
+        endpoint: 'works/add',
+        authType: AuthType.basic,
+        reqBody: {
+          "id": work.id,
+          "project_id": work.projectId,
+          "project_title": work.projectTitle,
+          "project_desc": work.projectDesc,
+          "project_img": work.projectImg,
+          "tools_used": work.toolsUsed,
+          "playstore_link": work.playstoreLink,
+        });
     return response.fold(
       (l) async {
-        final success=Success.fromJson(l.data);
+        final success = ApiBaseResponse.fromJson(l.data);
+
         // final List<WorkModel> workList =
         //     (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
-        
+
+        // await cacheBestRecord(bestStatModel: response);
+        return Left(success);
+      },
+      (r) async {
+        // final response = await getWorkListFromCache();
+        // if (response != null) {
+        //   _ref.read(bestDataState.notifier).state = response;
+        // }
+
+        return Right(r);
+      },
+    );
+  }
+
+  Future<Either<ApiBaseResponse, Failure>> removeWorkById(
+      WorkModel work) async {
+    final response = await _api.request(
+        reqType: DioMethod.post,
+        endpoint: 'works/remove',
+        authType: AuthType.basic,
+        reqBody: {
+          "project_id": work.projectId,
+        });
+    return response.fold(
+      (l) async {
+        final success = ApiBaseResponse.fromJson(l.data);
+        debugPrint(success.message);
+        // final List<WorkModel> workList =
+        //     (l.data as List<dynamic>).map((e) => WorkModel.fromJson(e)).toList();
+
         // await cacheBestRecord(bestStatModel: response);
         return Left(success);
       },

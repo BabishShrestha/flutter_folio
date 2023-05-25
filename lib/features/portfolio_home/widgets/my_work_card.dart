@@ -5,6 +5,7 @@ import '../../../core/utils/font.dart';
 
 class MyWorkCard extends StatelessWidget {
   final VoidCallback? onTap;
+  final VoidCallback? onLongPress;
 
   final String projectTitle;
 
@@ -18,6 +19,7 @@ class MyWorkCard extends StatelessWidget {
   const MyWorkCard({
     super.key,
     this.onTap,
+    this.onLongPress,
     required this.projectTitle,
     required this.toolImage,
     required this.description,
@@ -38,6 +40,7 @@ class MyWorkCard extends StatelessWidget {
       // color: Colors.grey,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
+        onLongPress: onLongPress,
         onTap: onTap,
         //  () {
         //   Navigator.of(context).push(MaterialPageRoute(
@@ -62,7 +65,8 @@ class MyWorkCard extends StatelessWidget {
                   Text(
                     'Made With: ',
                     style: GoogleFonts.poppins(
-                        fontSize: FontSize.small, fontWeight: FontWeight.normal),
+                        fontSize: FontSize.small,
+                        fontWeight: FontWeight.normal),
                   ),
                   Image.asset(
                     toolImage,
@@ -87,7 +91,8 @@ class MyWorkCard extends StatelessWidget {
                   child: Text(
                     'ReadMore >>',
                     style: GoogleFonts.poppins(
-                        fontSize: FontSize.small, fontWeight: FontWeight.normal),
+                        fontSize: FontSize.small,
+                        fontWeight: FontWeight.normal),
                   ))
             ],
           ),

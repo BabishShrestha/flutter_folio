@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
 import 'package:flutter_folio/features/portfolio_add/presentation/add_work_view_mobile.dart';
@@ -16,7 +17,8 @@ class FlutterFolioHome extends StatelessWidget {
         child: const Icon(Icons.add),
         // backgroundColor: Colors.blue,
         onPressed: () {
-          Navigator.of(context).push(MaterialPageRoute(
+          Navigator.of(context).push(CupertinoPageRoute(
+            fullscreenDialog: true,
             builder: (context) => const AddWorkScreen(),
           ));
         },

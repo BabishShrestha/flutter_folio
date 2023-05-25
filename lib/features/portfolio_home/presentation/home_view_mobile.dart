@@ -20,7 +20,8 @@ class HomeViewMobile extends ConsumerStatefulWidget {
 class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
   @override
   void initState() {
-    ref.read(workListControllerProvider.notifier).getWorkList();
+    ref.read(getWorkListController.notifier).getWorkList();
+
     super.initState();
   }
 
@@ -51,18 +52,17 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
         // ref.watch(workListControllerProvider).when(data: )
         TextButton(
           onPressed: () {
-            ref.read(workListControllerProvider.notifier).addWork(work);
-            
+            ref.read(addWorkController.notifier).addWork(work);
           },
           child: const Text('Add'),
         ),
         // Title
         Text(
           'My Works',
-          style: FontStyle().poppinsMedium ,
+          style: FontStyle().poppinsMedium,
         ),
         // My Work list
-        ref.watch(workListControllerProvider).maybeWhen(
+        ref.watch(getWorkListController).maybeWhen(
               loading: () => const Center(
                 child: CircularProgressIndicator(),
               ),
@@ -84,6 +84,11 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
                             ),
                           ),
                         );
+                      },
+                      onLongPress: () {
+                        ref
+                            .read(removeWorkController.notifier)
+                            .removeWork(posts[index]);
                       },
                     ),
                   ),

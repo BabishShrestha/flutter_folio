@@ -1,14 +1,15 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_folio/core/api/interceptors/response_interceptor.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 import 'interceptors/error_interceptor.dart';
+
 part 'dio_client.g.dart';
 
 @riverpod
 String baseUrl(BaseUrlRef ref) =>
-    kIsWeb ? 'http://localhost:8000/' : 'http://192.168.1.66:8000/';
+    'https://50ee-2400-1a00-b010-7969-5512-8cd5-26f9-85ca.ngrok-free.app/';
+// kIsWeb ? 'http://localhost:8000/' : 'http://192.168.1.66:8000/';
 
 @riverpod
 Dio dio(DioRef ref) {

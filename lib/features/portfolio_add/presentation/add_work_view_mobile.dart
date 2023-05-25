@@ -19,23 +19,29 @@ class _AddWorkScreenState extends State<AddWorkScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        elevation: 0,
+        title: Text(
+          'Work Details',
+          style: FontStyle().poppinsMedium,
+        ),
+      ),
       body: SafeArea(
         minimum: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          // itemExtent: 400,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const SizedBox(
               height: 30,
-            ),
-            Text(
-              'Work Details',
-              style: FontStyle().poppinsMedium,
             ),
             Form(
               key: _formKey,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 // Project Id
                 TextFormFieldLabel(
+                  autofocus: true,
                   projectTitle: 'Project Id:',
                   hintText: 'Enter Project ID',
                   errorText: 'Project ID cannot be empty',
@@ -103,12 +109,15 @@ class TextFormFieldLabel extends StatelessWidget {
   final String? hintText;
   final String? errorText;
   final FormFieldValidator? validator;
+
+  final bool autofocus;
   const TextFormFieldLabel({
     super.key,
     required this.projectTitle,
     this.hintText,
     this.errorText,
     this.validator,
+    this.autofocus = false,
   });
 
   @override
@@ -122,6 +131,7 @@ class TextFormFieldLabel extends StatelessWidget {
           style: FontStyle().poppinsSmall,
         ),
         TextFormField(
+          autofocus: autofocus,
           decoration: InputDecoration(
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
