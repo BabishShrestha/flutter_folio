@@ -42,6 +42,8 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
       playstoreLink: 'https://www.pexels.com');
   @override
   Widget build(BuildContext context) {
+    ref.read(getWorkListController.notifier).getWorkList();
+    print('top');
     return Column(
       mainAxisSize: MainAxisSize.max,
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -53,6 +55,8 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
         TextButton(
           onPressed: () {
             ref.read(addWorkController.notifier).addWork(work);
+
+            print('middle');
           },
           child: const Text('Add'),
         ),
@@ -67,6 +71,7 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
                 child: CircularProgressIndicator(),
               ),
               data: (posts) {
+                print('inside');
                 return Expanded(
                   child: ListView.builder(
                     itemCount: posts.length,
@@ -89,6 +94,8 @@ class _HomeViewMobileWidgetState extends ConsumerState<HomeViewMobile> {
                         ref
                             .read(removeWorkController.notifier)
                             .removeWork(posts[index]);
+
+                        // ref.watch(getWorkListController);
                       },
                     ),
                   ),
