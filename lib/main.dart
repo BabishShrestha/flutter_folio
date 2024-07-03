@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_folio/core/theme/ui_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -16,19 +17,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     GoogleFonts.config.allowRuntimeFetching = false;
-    final lightTheme = ThemeData(
-      primaryColor: Colors.grey,
-      textTheme: TextTheme(
-        displayLarge: GoogleFonts.poppins(
-            fontSize: FontSize.medium, fontWeight: FontWeight.bold),
-      ),
-    );
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Flutter Folio',
-      theme: ThemeData(
-        primarySwatch: Colors.grey,
-      ),
+      theme: UITheme.themeData,
       home: const FlutterFolioHome(),
     );
   }

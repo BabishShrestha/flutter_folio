@@ -1,5 +1,6 @@
 class UiImagePath {
   static const String avatar = 'assets/images/avatar.png';
+  static const String avatar2 = 'assets/images/avatar2.png';
   static const String unitySmall = 'assets/images/unity-small.png';
   static const String flutter = 'assets/images/flutter.png';
   static const String unity = 'assets/images/unity.png';

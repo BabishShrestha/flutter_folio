@@ -1,12 +1,11 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_folio/core/utils/font.dart';
+import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:google_fonts/google_fonts.dart';
 
-import '../../portfolio_details/portfolio_details_screen.dart';
 import '../data/work_list_controller.dart';
-import '../widgets/portfolio_home.dart';
 
 class HomeViewDesktop extends ConsumerStatefulWidget {
   const HomeViewDesktop({super.key});
@@ -15,117 +14,163 @@ class HomeViewDesktop extends ConsumerStatefulWidget {
   ConsumerState<HomeViewDesktop> createState() => _HomeViewDesktopState();
 }
 
+enum PortfolioView { home, about, portfolio, contact }
+
 class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
+  PortfolioView selectedPage = PortfolioView.home;
+
   @override
   void initState() {
     ref.read(getWorkListController.notifier).getWorkList();
-
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      children: [
-        // profile header
-        Row(
-          mainAxisSize: MainAxisSize.min,
+    return Scaffold(
+      appBar: AppBar(
+        title: Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            // profile image
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(20),
-                child: Image.asset(UiImagePath.avatar, scale: 1.4),
-              ),
-            ),
-            const SizedBox(
-              width: 30,
-            ),
-
-            // profile details
-            const Expanded(
-              child: SizedBox(
-                height: 400,
-                child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      // Text Header and subheader
-                      TextLabel(
-                        isWeb: true,
-                      ),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // Hire Me & Follow  button
-                      ButtonPanel(),
-                      SizedBox(
-                        height: 30,
-                      ),
-                      // Social links
-                      SocialLinkWidget(),
-                    ]),
-              ),
-            ),
-          ],
+          children: PortfolioView.values
+              .map((view) => _buildCustomTextButton(view))
+              .toList(),
         ),
+      ),
+      body: _buildBody(),
+    );
+  }
 
-        // my works
-        titleText(title: 'My Works'),
-        ref.watch(getWorkListController).maybeWhen(
-              loading: () => const Center(
-                child: CircularProgressIndicator(),
-              ),
-              data: (posts) {
-                return SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.35,
-                  child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: posts.length,
-                    shrinkWrap: true,
-                    physics: const BouncingScrollPhysics(),
-                    separatorBuilder: (context, index) => const SizedBox(
-                      width: 100,
-                    ),
-                    itemBuilder: (context, index) => SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.35,
-                      child: MyWorkCard(
-                        projectTitle: posts[index].projectTitle,
-                        toolImage: UiImagePath.unitySmall,
-                        description: posts[index].projectDesc,
-                        onTap: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(
-                              builder: (context) => PortfolioDetailsScreen(
-                                workDetail: posts[index],
-                              ),
-                            ),
-                          );
-                        },
+  Widget _buildCustomTextButton(PortfolioView view) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: CustomTextButton(
+        isSelected: selectedPage == view,
+        selectedPage: view,
+        onPressed: () {
+          setState(() {
+            selectedPage = view;
+          });
+          log('${view.name} clicked');
+        },
+      ),
+    );
+  }
+
+  Widget _buildBody() {
+    switch (selectedPage) {
+      case PortfolioView.home:
+        return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.3,
+              child: const Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        "I'm",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: UIColors.white,
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
                       ),
+                      SizedBox(width: 8),
+                      Text(
+                        'Babish \nShrestha',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          color: UIColors.primaryColor,
+                          fontSize: 36,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(
+                      height:
+                          8), // Adjust the space between the lines as needed
+                  Text(
+                    'Mobile Application Developer & Web Developer',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: UIColors.white,
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                );
-              },
-              orElse: () => const Text('Not found'),
+                ],
+              ),
             ),
+            // Adjust the space between the lines as needed
+            Expanded(
+              child: Image.asset(
+                UiImagePath.avatar2,
+                scale: 2,
+              ),
+            )
+          ],
+        );
+      case PortfolioView.about:
+        return _buildAboutPage();
+      case PortfolioView.portfolio:
+        return _buildPortfolioPage();
+      case PortfolioView.contact:
+        return _buildContactPage();
+    }
+    // Your body content here
+  }
 
-        // skills
-        titleText(title: 'Skills'),
-
-        // contact
+  Widget _buildAboutPage() {
+    return Column(
+      children: [
+        Image.asset(
+          UiImagePath.avatar,
+          width: 100,
+          height: 100,
+          fit: BoxFit.cover,
+        ),
+        const Text('About me'),
       ],
     );
   }
 
-  Text titleText({required String title}) {
-    return Text(
-      title,
-      style: GoogleFonts.poppins(
-          fontSize: FontSize.medium, fontWeight: FontWeight.bold),
+  Widget _buildPortfolioPage() {
+    return const Text('Portfolio');
+  }
+
+  Widget _buildContactPage() {
+    return const Text('Contact');
+  }
+}
+
+class CustomTextButton extends StatelessWidget {
+  final PortfolioView selectedPage;
+  final bool isSelected;
+  final Function()? onPressed;
+
+  const CustomTextButton(
+      {super.key,
+      required this.selectedPage,
+      this.onPressed,
+      required this.isSelected});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      style: TextButton.styleFrom(
+          foregroundColor: isSelected
+              ? UIColors.buttonSelectedColor
+              : UIColors.buttonUnSelectedColor),
+      onPressed: onPressed,
+      child: Text(
+        '${selectedPage.name[0].toUpperCase()}${selectedPage.name.substring(1)}',
+      ),
     );
   }
 }
