@@ -3,7 +3,6 @@ import 'package:flutter_folio/core/theme/ui_theme.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'core/utils/font.dart';
 import 'features/portfolio_home/presentation/portfolio_overview_screen.dart';
 
 void main() {

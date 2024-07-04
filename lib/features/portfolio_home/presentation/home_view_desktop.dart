@@ -1,11 +1,10 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
-import 'package:flutter_folio/core/utils/image_path.dart';
+import 'package:flutter_folio/features/portfolio_home/presentation/portfolio_overview_screen.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../data/work_list_controller.dart';
+import '../widgets/web_widgets/web_widgets.dart';
 
 class HomeViewDesktop extends ConsumerStatefulWidget {
   const HomeViewDesktop({super.key});
@@ -17,8 +16,6 @@ class HomeViewDesktop extends ConsumerStatefulWidget {
 enum PortfolioView { home, about, portfolio, contact }
 
 class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
-  PortfolioView selectedPage = PortfolioView.home;
-
   @override
   void initState() {
     ref.read(getWorkListController.notifier).getWorkList();
@@ -27,125 +24,22 @@ class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: PortfolioView.values
-              .map((view) => _buildCustomTextButton(view))
-              .toList(),
-        ),
-      ),
-      body: _buildBody(),
-    );
-  }
-
-  Widget _buildCustomTextButton(PortfolioView view) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: CustomTextButton(
-        isSelected: selectedPage == view,
-        selectedPage: view,
-        onPressed: () {
-          setState(() {
-            selectedPage = view;
-          });
-          log('${view.name} clicked');
-        },
-      ),
-    );
+    return _buildBody();
   }
 
   Widget _buildBody() {
-    switch (selectedPage) {
+    switch (ref.watch(selectedPageProvider)) {
       case PortfolioView.home:
-        return Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.3,
-              child: const Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "I'm",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: UIColors.white,
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Text(
-                        'Babish \nShrestha',
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: UIColors.primaryColor,
-                          fontSize: 36,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ],
-                  ),
-                  SizedBox(
-                      height:
-                          8), // Adjust the space between the lines as needed
-                  Text(
-                    'Mobile Application Developer & Web Developer',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: UIColors.white,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            // Adjust the space between the lines as needed
-            Expanded(
-              child: Image.asset(
-                UiImagePath.avatar2,
-                scale: 2,
-              ),
-            )
-          ],
-        );
+        return const HomePage();
       case PortfolioView.about:
-        return _buildAboutPage();
+        return const AboutPage();
       case PortfolioView.portfolio:
-        return _buildPortfolioPage();
+        return const PortfolioPage();
       case PortfolioView.contact:
-        return _buildContactPage();
+        return const ContactPage();
+      default:
+        return const HomePage();
     }
-    // Your body content here
-  }
-
-  Widget _buildAboutPage() {
-    return Column(
-      children: [
-        Image.asset(
-          UiImagePath.avatar,
-          width: 100,
-          height: 100,
-          fit: BoxFit.cover,
-        ),
-        const Text('About me'),
-      ],
-    );
-  }
-
-  Widget _buildPortfolioPage() {
-    return const Text('Portfolio');
-  }
-
-  Widget _buildContactPage() {
-    return const Text('Contact');
   }
 }
 

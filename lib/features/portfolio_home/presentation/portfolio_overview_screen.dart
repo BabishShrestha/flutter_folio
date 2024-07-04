@@ -1,36 +1,44 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_folio/core/utils/colors_ui.dart';
+import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
-import 'package:flutter_folio/features/portfolio_add/presentation/add_work_view_mobile.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 
-import 'home_view_tablet.dart';
 import 'home_view_mobile.dart';
+import 'home_view_tablet.dart';
 
-class FlutterFolioHome extends StatelessWidget {
+final selectedPageProvider = StateProvider<PortfolioView>((ref) {
+  return PortfolioView.home;
+});
+
+class FlutterFolioHome extends ConsumerWidget {
   const FlutterFolioHome({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        // backgroundColor: Colors.blue,
-        onPressed: () {
-          Navigator.of(context).push(CupertinoPageRoute(
-            fullscreenDialog: true,
-            builder: (context) => const AddWorkScreen(),
-          ));
-        },
+      appBar: AppBar(
+        title: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: PortfolioView.values
+              .map((view) => _buildCustomTextButton(view, ref))
+              .toList(),
+        ),
       ),
+      floatingActionButton: const SocialMediaWidget(),
       body: SafeArea(
         child: AnimatedContainer(
-          padding: const EdgeInsets.all(18.0),
           duration: const Duration(milliseconds: 300),
           child: ScreenTypeLayout.builder(
-            mobile: (context) => OrientationLayoutBuilder(
-              portrait: (context) => const HomeViewMobile(),
-              landscape: (context) => const HomeViewTablet(),
+            mobile: (context) => Padding(
+              padding: const EdgeInsets.all(18.0),
+              child: OrientationLayoutBuilder(
+                portrait: (context) => const HomeViewMobile(),
+                landscape: (context) => const HomeViewTablet(),
+              ),
             ),
             tablet: (context) => const HomeViewTablet(),
             desktop: (context) => const HomeViewDesktop(),
@@ -44,6 +52,67 @@ class FlutterFolioHome extends StatelessWidget {
           // }),
         ),
       ),
+    );
+  }
+
+  Widget _buildCustomTextButton(PortfolioView view, WidgetRef ref) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10),
+      child: CustomTextButton(
+        isSelected: ref.watch(selectedPageProvider) == view,
+        selectedPage: view,
+        onPressed: () {
+          ref.read(selectedPageProvider.notifier).state = view;
+          log('${view.name} clicked');
+        },
+      ),
+    );
+  }
+}
+
+class SocialMediaWidget extends StatelessWidget {
+  const SocialMediaWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        SizedBox(
+          height: MediaQuery.of(context).size.height * 0.15,
+          child: const VerticalDivider(
+            color: UIColors.primaryColor,
+            thickness: 2,
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextButton(
+          style: TextButton.styleFrom(),
+          onPressed: () {},
+          child: Image.asset(
+            UiImagePath.facebookWhite,
+            fit: BoxFit.contain,
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextButton(
+          onPressed: () {},
+          child: Image.asset(
+            UiImagePath.instagramWhite,
+            fit: BoxFit.contain,
+          ),
+        ),
+        const SizedBox(height: 16),
+        TextButton(
+          onPressed: () {},
+          child: Image.asset(
+            UiImagePath.linkedinWhite,
+            fit: BoxFit.contain,
+          ),
+        ),
+      ],
     );
   }
 }

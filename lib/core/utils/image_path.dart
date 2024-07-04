@@ -6,6 +6,10 @@ class UiImagePath {
   static const String unity = 'assets/images/unity.png';
   static const String vscode = 'assets/images/vscode.png';
   static const String sortYourBinLogo = 'assets/images/sortyourbin_logo.png';
+  static const String facebookWhite = 'assets/images/facebook_white.png';
+  static const String instagramWhite = 'assets/images/instagram_white.png';
+  static const String linkedinWhite = 'assets/images/linkedin_white.png';
+  static const String about = 'assets/images/about.png';
 
   static const List<String> sortYourBinScreenshot = [
     'assets/images/screenshots/sortyourbin_sc1.jpg',
