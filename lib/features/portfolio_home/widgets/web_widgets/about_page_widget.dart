@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 
+var _scrollController = ScrollController();
+
 class AboutPage extends StatelessWidget {
   const AboutPage({
     super.key,
@@ -10,6 +12,7 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: _scrollController,
       children: [
         Image.asset(
           UiImagePath.about,
@@ -21,8 +24,9 @@ class AboutPage extends StatelessWidget {
         Container(
           height: MediaQuery.of(context).size.height,
           padding: const EdgeInsets.only(
-              left: 24.0, right: 46.0, top: 20.0, bottom: 20.0),
+              left: 24.0, right: 60.0, top: 20.0, bottom: 20.0),
           child: ListView(
+            controller: _scrollController,
             children: [
               Text(
                 'About',
@@ -65,10 +69,60 @@ class AboutPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     color: UIColors.white, fontWeight: FontWeight.bold),
               ),
+              GridView.count(
+                controller: _scrollController,
+                crossAxisCount: 4,
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                children: [
+                  _buildSkillItem(context, 'Flutter', UiImagePath.flutter),
+                  _buildSkillItem(context, 'Dart', UiImagePath.dart),
+                  _buildSkillItem(context, 'Unity', UiImagePath.unityWhite),
+                  _buildSkillItem(context, 'C#', UiImagePath.cSharp),
+                  _buildSkillItem(context, 'Firebase', UiImagePath.firebase),
+                  _buildSkillItem(context, 'Git', UiImagePath.git),
+                  _buildSkillItem(context, 'SQL', UiImagePath.sql),
+                  _buildSkillItem(context, 'Postman', UiImagePath.postman),
+                ],
+              ),
             ],
           ),
         ),
       ],
+    );
+  }
+
+  _buildSkillItem(BuildContext context, String title, String imagePath) {
+    return Container(
+      margin: const EdgeInsets.all(12.0),
+      padding: const EdgeInsets.all(12.0),
+      decoration: BoxDecoration(
+        color: UIColors.foregroundColor,
+        borderRadius: BorderRadius.circular(8.0),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Expanded(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                imagePath,
+              ),
+            ),
+          ),
+          const SizedBox(
+            height: 24,
+          ),
+          Text(
+            title,
+            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: UIColors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+          ),
+        ],
+      ),
     );
   }
 }
