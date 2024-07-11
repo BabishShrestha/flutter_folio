@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_folio/core/utils/colors_ui.dart';
-import 'package:flutter_folio/core/utils/image_path.dart';
+
+import 'package:flutter_folio/core/utils/utils.dart';
+
+import '../../domain/model/skill_model.dart';
 
 var _scrollController = ScrollController();
 
@@ -69,21 +71,8 @@ class AboutPage extends StatelessWidget {
                 style: Theme.of(context).textTheme.headlineLarge?.copyWith(
                     color: UIColors.white, fontWeight: FontWeight.bold),
               ),
-              GridView.count(
-                controller: _scrollController,
-                crossAxisCount: 4,
-                shrinkWrap: true,
-                physics: const NeverScrollableScrollPhysics(),
-                children: [
-                  _buildSkillItem(context, 'Flutter', UiImagePath.flutter),
-                  _buildSkillItem(context, 'Dart', UiImagePath.dart),
-                  _buildSkillItem(context, 'Unity', UiImagePath.unityWhite),
-                  _buildSkillItem(context, 'C#', UiImagePath.cSharp),
-                  _buildSkillItem(context, 'Firebase', UiImagePath.firebase),
-                  _buildSkillItem(context, 'Git', UiImagePath.git),
-                  _buildSkillItem(context, 'SQL', UiImagePath.sql),
-                  _buildSkillItem(context, 'Postman', UiImagePath.postman),
-                ],
+              CustomGridWidget(
+                skillList: formattedSkillList,
               ),
             ],
           ),
@@ -91,8 +80,43 @@ class AboutPage extends StatelessWidget {
       ],
     );
   }
+}
 
-  _buildSkillItem(BuildContext context, String title, String imagePath) {
+class CustomGridWidget extends StatelessWidget {
+  final List<SkillModel> skillList;
+  const CustomGridWidget({
+    super.key,
+    required this.skillList,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.count(
+      controller: _scrollController,
+      crossAxisCount: 4,
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      children: skillList
+          .map((skill) => CustomTabWidget(
+                title: skill.title,
+                imagePath: skill.imagePath,
+              ))
+          .toList(),
+    );
+  }
+}
+
+class CustomTabWidget extends StatelessWidget {
+  final String title;
+  final String imagePath;
+  const CustomTabWidget({
+    super.key,
+    required this.title,
+    required this.imagePath,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.all(12.0),
       padding: const EdgeInsets.all(12.0),
