@@ -82,8 +82,8 @@ class HomePage extends StatelessWidget {
         // Adjust the space between the lines as needed
         Expanded(
           child: Image.asset(
-            UiImagePath.avatar2,
-            scale: 2,
+            UiImagePath.avatar4,
+            // scale: 3,
           ),
         )
       ],

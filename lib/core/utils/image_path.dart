@@ -1,14 +1,17 @@
 class UiImagePath {
   static const String avatar = 'assets/images/avatar.png';
   static const String avatar2 = 'assets/images/avatar2.png';
+  static const String avatar3 = 'assets/images/avatar3.png';
+  static const String avatar4 = 'assets/images/avatar4.png';
+  static const String avatar5 = 'assets/images/avatar5.png';
   static const String unitySmall =
       'assets/images/logo/programming/unity-small.png';
   static const String unityWhite =
-      'assets/images/logo/programming/unity-white.jpg';
+      'assets/images/logo/programming/unity-white.png';
 
   static const String firebase = 'assets/images/logo/programming/firebase.png';
-  static const String git = 'assets/images/logo/programming/git.jpg';
-  static const String sql = 'assets/images/logo/programming/sql.jpg';
+  static const String git = 'assets/images/logo/programming/git.png';
+  static const String sql = 'assets/images/logo/programming/sql.png';
   static const String postman = 'assets/images/logo/programming/postman.png';
 
   static const String cSharp = 'assets/images/logo/programming/csharp.png';
@@ -26,6 +29,7 @@ class UiImagePath {
   static const String linkedinWhite =
       'assets/images/logo/social_media/linkedin_white.png';
   static const String about = 'assets/images/about.png';
+  static const String contact = 'assets/images/contact.png';
 
   static const List<String> sortYourBinScreenshot = [
     'assets/images/screenshots/sortyourbin_sc1.jpg',

@@ -32,24 +32,25 @@ class FlutterFolioHome extends ConsumerWidget {
       body: SafeArea(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          child: ScreenTypeLayout.builder(
-            mobile: (context) => Padding(
-              padding: const EdgeInsets.all(18.0),
-              child: OrientationLayoutBuilder(
-                portrait: (context) => const HomeViewMobile(),
-                landscape: (context) => const HomeViewTablet(),
-              ),
-            ),
-            tablet: (context) => const HomeViewTablet(),
-            desktop: (context) => const HomeViewDesktop(),
-          ),
-          // OrientationBuilder(builder: (context, constraints) {
-          //   if (constraints == Orientation.landscape) {
-          //     return const LandscapeOverviewWidget();
-          //   } else {
-          //     return const PotraitOverviewWidget();
-          //   }
-          // }),
+          child: HomeViewDesktop(),
+          //  ScreenTypeLayout.builder(
+          //   // mobile: (context) => Padding(
+          //   //   padding: const EdgeInsets.all(18.0),
+          //   //   child: OrientationLayoutBuilder(
+          //   //     portrait: (context) => const HomeViewMobile(),
+          //   //     landscape: (context) => const HomeViewTablet(),
+          //   //   ),
+          //   // ),
+          //   // tablet: (context) => const HomeViewTablet(),
+          //   desktop: (context) => const HomeViewDesktop(),
+          // ),
+          // // OrientationBuilder(builder: (context, constraints) {
+          // //   if (constraints == Orientation.landscape) {
+          // //     return const LandscapeOverviewWidget();
+          // //   } else {
+          // //     return const PotraitOverviewWidget();
+          // //   }
+          // // }),
         ),
       ),
     );

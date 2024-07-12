@@ -14,7 +14,6 @@ class AboutPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
-      controller: _scrollController,
       children: [
         Image.asset(
           UiImagePath.about,
