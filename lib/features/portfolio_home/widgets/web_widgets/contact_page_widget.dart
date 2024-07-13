@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 
@@ -14,7 +15,6 @@ class ContactPage extends StatelessWidget {
       children: [
         Image.asset(
           UiImagePath.contact,
-          fit: BoxFit.cover,
         ),
         const SizedBox(
           height: 12,
@@ -39,6 +39,7 @@ class ContactPage extends StatelessWidget {
         ),
         Container(
           padding: const EdgeInsets.all(12.0),
+          width: double.infinity,
           decoration: const BoxDecoration(
             color: UIColors.foregroundColor,
             border: Border.symmetric(
@@ -48,16 +49,15 @@ class ContactPage extends StatelessWidget {
                 ),
                 vertical: BorderSide.none),
           ),
-          child: const Column(mainAxisSize: MainAxisSize.min, children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+          child: const Column(mainAxisSize: MainAxisSize.max, children: [
+            Wrap(
+              alignment: WrapAlignment.center,
+              spacing: 12, // Space between items in a row
+              runSpacing: 12, // Space between rows
               children: [
                 CustomLabelWidget(
                   iconData: Icons.email_outlined,
                   label: 'babishshrestha8@gmail.com',
-                ),
-                SizedBox(
-                  width: 12,
                 ),
                 CustomLabelWidget(
                   iconData: Icons.phone,
@@ -79,9 +79,11 @@ class ContactPage extends StatelessWidget {
           child: Text(
             "\" Thank You For Scrolling.\nLooking Forward To Working With You.\nLet’s Build That Dream Project To Reality. \"",
             textAlign: TextAlign.center,
+            maxLines: 3,
             style: Theme.of(context).textTheme.titleLarge?.copyWith(
                   color: UIColors.primaryColor,
                   fontWeight: FontWeight.bold,
+                  fontSize: MediaQuery.of(context).size.width > 600 ? 24 : 16,
                 ),
           ),
         ),

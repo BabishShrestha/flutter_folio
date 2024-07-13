@@ -18,6 +18,7 @@ class AboutPage extends StatelessWidget {
         Image.asset(
           UiImagePath.about,
           fit: BoxFit.cover,
+          scale: 2,
         ),
         const SizedBox(
           height: 12,
@@ -90,9 +91,31 @@ class CustomGridWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.count(
+    double screenWidth = MediaQuery.of(context).size.width;
+    int crossAxisCount;
+    double childAspectRatio;
+
+    if (screenWidth < 650) {
+      // Mobile
+      crossAxisCount = 2;
+      childAspectRatio = 1.2;
+    } else if (screenWidth < 1200) {
+      // Tablet
+      crossAxisCount = 3;
+      childAspectRatio = 1.2;
+    } else {
+      // Desktop and larger screens
+      crossAxisCount = 4;
+      childAspectRatio = 1.4; // Adjust as needed for larger screens
+    }
+    return GridView(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: crossAxisCount,
+        crossAxisSpacing: 20,
+        mainAxisSpacing: 20,
+        childAspectRatio: childAspectRatio,
+      ),
       controller: _scrollController,
-      crossAxisCount: 4,
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       children: skillList
@@ -139,6 +162,7 @@ class CustomTabWidget extends StatelessWidget {
           ),
           Text(
             title,
+            overflow: TextOverflow.ellipsis,
             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                   color: UIColors.white,
                   fontWeight: FontWeight.bold,

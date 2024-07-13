@@ -5,10 +5,6 @@ import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:responsive_builder/responsive_builder.dart';
-
-import 'home_view_mobile.dart';
-import 'home_view_tablet.dart';
 
 final selectedPageProvider = StateProvider<PortfolioView>((ref) {
   return PortfolioView.home;
@@ -21,18 +17,26 @@ class FlutterFolioHome extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return Scaffold(
       appBar: AppBar(
-        title: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: PortfolioView.values
-              .map((view) => _buildCustomTextButton(view, ref))
-              .toList(),
+          title: Container(
+        alignment: Alignment.center,
+        child: SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: PortfolioView.values
+                .map((view) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: _buildCustomTextButton(view, ref),
+                    ))
+                .toList(),
+          ),
         ),
-      ),
+      )),
       floatingActionButton: const SocialMediaWidget(),
       body: SafeArea(
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 300),
-          child: HomeViewDesktop(),
+          child: const HomeViewDesktop(),
           //  ScreenTypeLayout.builder(
           //   // mobile: (context) => Padding(
           //   //   padding: const EdgeInsets.all(18.0),
