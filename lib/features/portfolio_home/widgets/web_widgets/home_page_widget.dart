@@ -41,7 +41,6 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _buildImageContent(),
-          const SizedBox(height: 20),
           _buildTextContent(context),
         ],
       ),
@@ -64,12 +63,9 @@ class HomePage extends StatelessWidget {
   }
 
   Widget _buildImageContent() {
-    return Padding(
-      padding: const EdgeInsets.all(20.0),
-      child: Image.asset(
-        UiImagePath.avatar4, // Replace with your image asset path
-        fit: BoxFit.contain,
-      ),
+    return Image.asset(
+      UiImagePath.avatar4, // Replace with your image asset path
+      fit: BoxFit.contain,
     );
   }
 

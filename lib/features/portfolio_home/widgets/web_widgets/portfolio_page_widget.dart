@@ -3,13 +3,19 @@ import 'package:flutter_folio/core/utils/utils.dart';
 import 'package:flutter_folio/features/portfolio_home/widgets/web_widgets/web_widgets.dart';
 
 class PortfolioPage extends StatelessWidget {
-  const PortfolioPage({super.key});
+  final ScrollController scrollController;
+  const PortfolioPage({
+    super.key,
+    required this.scrollController,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      padding: const EdgeInsets.only(
-          left: 24.0, right: 60.0, top: 20.0, bottom: 20.0),
+    return Column(
+      key: key,
+      // controller: scrollController,
+      // padding: const EdgeInsets.only(
+      //     left: 24.0, right: 60.0, top: 20.0, bottom: 20.0),
       children: [
         Text(
           'Portfolio',
@@ -20,6 +26,7 @@ class PortfolioPage extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         CustomGridWidget(
+          scrollController: scrollController,
           skillList: formattedProjectList,
         ),
         Text(
