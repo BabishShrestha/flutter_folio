@@ -64,7 +64,7 @@ class HomePage extends StatelessWidget {
 
   Widget _buildImageContent() {
     return Image.asset(
-      UiImagePath.avatar4, // Replace with your image asset path
+      UiImagePath.avatar6, // Replace with your image asset path
       fit: BoxFit.contain,
     );
   }

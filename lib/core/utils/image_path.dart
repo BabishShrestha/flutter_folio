@@ -4,6 +4,7 @@ class UiImagePath {
   static const String avatar3 = 'assets/images/avatar3.png';
   static const String avatar4 = 'assets/images/avatar4.png';
   static const String avatar5 = 'assets/images/avatar5.png';
+  static const String avatar6 = 'assets/images/avatar6.png';
   static const String unitySmall =
       'assets/images/logo/programming/unity-small.png';
   static const String unityWhite =

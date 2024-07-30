@@ -5,7 +5,7 @@ import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:scrollview_observer/scrollview_observer.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../widgets/web_widgets/web_widgets.dart';
 
@@ -22,9 +22,28 @@ class FlutterFolioHome extends ConsumerStatefulWidget {
 
 class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
   final scrollController = ScrollController();
-  final listObserverController = ListObserverController();
+  final itemScrollController = ItemScrollController();
+
   @override
   Widget build(BuildContext context) {
+    var children = [
+      SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: const HomePage(),
+      ),
+      AboutPage(
+        scrollController: scrollController,
+      ),
+      SizedBox(
+        child: PortfolioPage(
+          scrollController: scrollController,
+        ),
+      ),
+      SizedBox(
+        height: MediaQuery.of(context).size.height,
+        child: const ContactPage(),
+      )
+    ];
     return Scaffold(
       appBar: AppBar(
           title: Container(
@@ -44,29 +63,12 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
       )),
       floatingActionButton: const SocialMediaWidget(),
       body: SafeArea(
-        child: ListViewObserver(
-          controller: listObserverController,
-          child: ListView(
-            controller: scrollController,
-            children: [
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: HomePage(),
-              ),
-              AboutPage(
-                scrollController: scrollController,
-              ),
-              SizedBox(
-                child: PortfolioPage(
-                  scrollController: scrollController,
-                ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height,
-                child: ContactPage(),
-              )
-            ],
-          ),
+        child: ScrollablePositionedList.builder(
+          itemCount: children.length,
+          itemScrollController: itemScrollController,
+          itemBuilder: (context, index) {
+            return children[index];
+          },
         ),
       ),
     );
@@ -82,29 +84,29 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
           ref.read(selectedPageProvider.notifier).state = view;
           if (ref.read(selectedPageProvider.notifier).state ==
               PortfolioView.home) {
-            listObserverController.animateTo(
-              index: PortfolioView.home.index,
+            itemScrollController.scrollTo(
+              index: 0,
               duration: const Duration(seconds: 1),
               curve: Curves.easeInOut,
             );
           } else if (ref.read(selectedPageProvider.notifier).state ==
               PortfolioView.about) {
-            listObserverController.animateTo(
-              index: PortfolioView.about.index,
+            itemScrollController.scrollTo(
+              index: 1,
               duration: const Duration(seconds: 1),
               curve: Curves.easeInOut,
             );
           } else if (ref.read(selectedPageProvider.notifier).state ==
               PortfolioView.portfolio) {
-            listObserverController.animateTo(
-              index: PortfolioView.portfolio.index,
+            itemScrollController.scrollTo(
+              index: 2,
               duration: const Duration(seconds: 1),
               curve: Curves.easeInOut,
             );
           } else if (ref.read(selectedPageProvider.notifier).state ==
               PortfolioView.contact) {
-            listObserverController.animateTo(
-              index: PortfolioView.contact.index,
+            itemScrollController.scrollTo(
+              index: 3,
               duration: const Duration(seconds: 1),
               curve: Curves.easeInOut,
             );

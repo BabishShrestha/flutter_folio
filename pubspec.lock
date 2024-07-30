@@ -712,14 +712,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.27.7"
-  scrollview_observer:
+  scrollable_positioned_list:
     dependency: "direct main"
     description:
-      name: scrollview_observer
-      sha256: "228dbc7d2e9d975a7c1d4beca1be7fdda7fff6bd7b3c37a646a8563301dc4753"
+      name: scrollable_positioned_list
+      sha256: "1b54d5f1329a1e263269abc9e2543d90806131aa14fe7c6062a8054d57249287"
       url: "https://pub.dev"
     source: hosted
-    version: "1.21.0"
+    version: "0.3.8"
   shelf:
     dependency: transitive
     description:
