@@ -19,7 +19,9 @@ jobs:
         flutter-version: '3.22.2'  # Specify the version you need
 
     - name: Build Release
-      run: flutter build web
+      run: |
+        flutter --version
+        flutter build web
 
 
     # - name: Deploy to GitHub Pages
