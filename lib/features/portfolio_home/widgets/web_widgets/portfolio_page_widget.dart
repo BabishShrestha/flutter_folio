@@ -27,7 +27,12 @@ class PortfolioPage extends StatelessWidget {
         const SizedBox(height: 20),
         CustomGridWidget(
           scrollController: scrollController,
-          skillList: formattedProjectList,
+          children: formattedProjectList
+              .map((project) => CustomTabWidget(
+                    title: project.title,
+                    imagePath: project.imagePath,
+                  ))
+              .toList(),
         ),
         Text(
           'Experience',

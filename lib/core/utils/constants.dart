@@ -2,38 +2,14 @@ import 'package:flutter_folio/core/utils/utils.dart';
 import 'package:flutter_folio/features/portfolio_home/domain/model/skill_model.dart';
 
 var skillList = [
-  {
-    'title': 'Flutter',
-    'imagePath': UiImagePath.flutter,
-  },
-  {
-    'title': 'Dart',
-    'imagePath': UiImagePath.dart,
-  },
-  {
-    'title': 'Unity',
-    'imagePath': UiImagePath.unityWhite,
-  },
-  {
-    'title': 'C#',
-    'imagePath': UiImagePath.cSharp,
-  },
-  {
-    'title': 'Firebase',
-    'imagePath': UiImagePath.firebase,
-  },
-  {
-    'title': 'Git',
-    'imagePath': UiImagePath.git,
-  },
-  {
-    'title': 'SQL',
-    'imagePath': UiImagePath.sql,
-  },
-  {
-    'title': 'Postman',
-    'imagePath': UiImagePath.postman,
-  },
+  {'title': 'Flutter', 'imagePath': UiImagePath.flutter, 'rating': 4.5},
+  {'title': 'Dart', 'imagePath': UiImagePath.dart, 'rating': 4},
+  {'title': 'Unity', 'imagePath': UiImagePath.unityWhite, 'rating': 3.0},
+  {'title': 'C#', 'imagePath': UiImagePath.cSharp, 'rating': 3.0},
+  {'title': 'Firebase', 'imagePath': UiImagePath.firebase, 'rating': 3.5},
+  {'title': 'Git', 'imagePath': UiImagePath.git, 'rating': 4.0},
+  {'title': 'SQL', 'imagePath': UiImagePath.sql, 'rating': 2.5},
+  {'title': 'Postman', 'imagePath': UiImagePath.postman, 'rating': 3.0},
 ];
 List<SkillModel> formattedSkillList =
     skillList.map((skill) => SkillModel.fromJson(skill)).toList();

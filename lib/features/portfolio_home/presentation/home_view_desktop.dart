@@ -114,8 +114,13 @@ class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
                               fontWeight: FontWeight.bold),
                     ),
                     CustomGridWidget(
-                      skillList: formattedSkillList,
                       scrollController: widget.scrollController,
+                      children: formattedSkillList
+                          .map((skill) => CustomTabWidget(
+                                imagePath: skill.imagePath,
+                                title: skill.title,
+                              ))
+                          .toList(),
                     ),
                   ],
                 ),

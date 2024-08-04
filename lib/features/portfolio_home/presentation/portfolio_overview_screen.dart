@@ -23,18 +23,25 @@ class FlutterFolioHome extends ConsumerStatefulWidget {
 class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
   final scrollController = ScrollController();
   final itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
 
   @override
   Widget build(BuildContext context) {
     var children = [
-      SizedBox(
+      Container(
+        margin: const EdgeInsets.only(bottom: 20),
         height: MediaQuery.of(context).size.height,
         child: const HomePage(),
       ),
-      AboutPage(
-        scrollController: scrollController,
+      Container(
+        margin: const EdgeInsets.only(bottom: 20),
+        child: AboutPage(
+          scrollController: scrollController,
+        ),
       ),
-      SizedBox(
+      Container(
+        margin: const EdgeInsets.only(bottom: 16),
         child: PortfolioPage(
           scrollController: scrollController,
         ),
@@ -44,6 +51,7 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
         child: const ContactPage(),
       )
     ];
+
     return Scaffold(
       appBar: AppBar(
           title: Container(
@@ -66,6 +74,7 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
         child: ScrollablePositionedList.builder(
           itemCount: children.length,
           itemScrollController: itemScrollController,
+          itemPositionsListener: itemPositionsListener,
           itemBuilder: (context, index) {
             return children[index];
           },
@@ -75,46 +84,60 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
   }
 
   Widget _buildCustomTextButton(PortfolioView view, WidgetRef ref) {
+    itemPositionsListener.itemPositions.addListener(() {
+      if (itemPositionsListener.itemPositions.value
+          .where((ItemPosition position) => position.index == view.index)
+          .isNotEmpty) {
+        ref.read(selectedPageProvider.notifier).state = view;
+      }
+    });
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10),
-      child: CustomTextButton(
-        isSelected: ref.watch(selectedPageProvider) == view,
-        selectedPage: view,
-        onPressed: () {
-          ref.read(selectedPageProvider.notifier).state = view;
-          if (ref.read(selectedPageProvider.notifier).state ==
-              PortfolioView.home) {
-            itemScrollController.scrollTo(
-              index: 0,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOut,
-            );
-          } else if (ref.read(selectedPageProvider.notifier).state ==
-              PortfolioView.about) {
-            itemScrollController.scrollTo(
-              index: 1,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOut,
-            );
-          } else if (ref.read(selectedPageProvider.notifier).state ==
-              PortfolioView.portfolio) {
-            itemScrollController.scrollTo(
-              index: 2,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOut,
-            );
-          } else if (ref.read(selectedPageProvider.notifier).state ==
-              PortfolioView.contact) {
-            itemScrollController.scrollTo(
-              index: 3,
-              duration: const Duration(seconds: 1),
-              curve: Curves.easeInOut,
-            );
-          }
-          log('${view.name} clicked');
-        },
-      ),
-    );
+        padding: const EdgeInsets.symmetric(horizontal: 10),
+        child: CustomTextButton(
+          isSelected: ref.watch(selectedPageProvider) == view,
+          selectedPage: view,
+          onPressed: () {
+            ref.read(selectedPageProvider.notifier).state = view;
+            if (ref.read(selectedPageProvider.notifier).state ==
+                PortfolioView.home) {
+              itemScrollController.scrollTo(
+                index: 0,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              );
+            } else if (ref.read(selectedPageProvider.notifier).state ==
+                PortfolioView.about) {
+              itemScrollController.scrollTo(
+                index: 1,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              );
+            } else if (ref.read(selectedPageProvider.notifier).state ==
+                PortfolioView.portfolio) {
+              itemScrollController.scrollTo(
+                index: 2,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              );
+            } else if (ref.read(selectedPageProvider.notifier).state ==
+                PortfolioView.contact) {
+              itemScrollController.scrollTo(
+                index: 3,
+                duration: const Duration(seconds: 1),
+                curve: Curves.easeInOut,
+              );
+            }
+            log('${view.name} clicked');
+          },
+        )
+
+        // ValueListenableBuilder<Iterable<ItemPosition>>(
+        //     valueListenable: itemPositionsListener.itemPositions,
+        //     builder: (context, positions, child) {
+        //       return
+        //     }),
+        );
   }
 }
 

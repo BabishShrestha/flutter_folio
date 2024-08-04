@@ -32,6 +32,7 @@ dependencies:
   url_launcher: ^6.1.11
   path_provider_foundation: ^2.2.3
   scrollable_positioned_list: ^0.3.8
+  flutter_rating_stars: ^1.1.0
 
 
 dev_dependencies:

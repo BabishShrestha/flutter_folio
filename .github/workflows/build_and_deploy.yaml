@@ -1,0 +1,44 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # or the branch you want to trigger the build on
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.22.2'  # Specify the version you need
+
+    - name: Build Release
+      run: flutter build web
+
+    # - name: Deploy to GitHub Pages
+    #   uses: peaceiris/actions-gh-pages@v3
+    #   with:
+    #     github_token: ${{ secrets.GITHUB_TOKEN }}
+    #     publish_dir: build/web
+
+    - name: Deploy to Another Repo
+      env:
+        TARGET_REPO:  BabishShrestha/babishshrestha.github.io  # Replace with your target repo
+        TARGET_BRANCH: main  # Or another branch you want to use
+        PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
+      run: |
+        git config --global user.name 'Babish Shrestha'
+        git config --global user.email 'babishshrestha8@gmail.com'
+
+        git clone --single-branch --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo
+        rsync -av --delete build/web/ deploy_repo/
+        cd deploy_repo
+        git add .
+        git commit -m "Deploy new release"
+        git push origin $TARGET_BRANCH
