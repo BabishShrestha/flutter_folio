@@ -36,6 +36,7 @@ jobs:
         TARGET_BRANCH: deploy_repo  # Or another branch you want to use
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
+        git credential-cache exit
         git config --global user.name 'Babish Shrestha'
         git config --global user.email 'babishshrestha8@gmail.com'
 
