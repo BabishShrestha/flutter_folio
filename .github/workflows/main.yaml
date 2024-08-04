@@ -32,7 +32,7 @@ jobs:
     - name: Deploy to Another Repo
       env:
         TARGET_REPO:  BabishShrestha/babishshrestha.github.io  # Replace with your target repo
-        TARGET_BRANCH: main  # Or another branch you want to use
+        TARGET_BRANCH: deploy_repo  # Or another branch you want to use
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
         git config --global user.name 'Babish Shrestha'
