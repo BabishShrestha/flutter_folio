@@ -40,9 +40,8 @@ jobs:
         git config --global user.name 'Babish Shrestha'
         git config --global user.email 'babishshrestha8@gmail.com'
 
-        git clone --single-branch --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO babishshrestha.github.io || \
-        (git clone https://$PERSONAL_TOKEN@github.com/$TARGET_REPO babishshrestha.github.io && cd babishshrestha.github.io && git checkout --orphan $TARGET_BRANCH)
-
+        git clone --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo || \
+        (git clone https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo && cd deploy_repo && git checkout --orphan $TARGET_BRANCH)
         rsync -av --delete build/web/ babishshrestha.github.io/
         cd babishshrestha.github.io
         git add .
