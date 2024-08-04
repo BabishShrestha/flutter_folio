@@ -17,10 +17,11 @@ jobs:
       uses: subosito/flutter-action@v2
       with:
         flutter-version: '3.22.2'  # Specify the version you need
-      run: flutter --version
 
     - name: Build Release
-      run: flutter build web
+      run: |
+        flutter --version
+        flutter build web
 
     # - name: Deploy to GitHub Pages
     #   uses: peaceiris/actions-gh-pages@v3
