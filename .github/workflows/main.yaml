@@ -33,14 +33,15 @@ jobs:
     - name: Deploy to Another Repo
       env:
         TARGET_REPO:  BabishShrestha/babishshrestha.github.io  # Replace with your target repo
-        TARGET_BRANCH: deploy_repo  # Or another branch you want to use
+        TARGET_BRANCH: main  # Or another branch you want to use
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}
       run: |
         git config --global user.name 'Babish Shrestha'
         git config --global user.email 'babishshrestha8@gmail.com'
 
-        git clone --single-branch --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo
-        rsync -av --delete build/web/ deploy_repo/
+        git clone --single-branch --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo || \
+        (git clone https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo && cd deploy_repo && git checkout --orphan $TARGET_BRANCH)
+
         cd deploy_repo
         git add .
         git commit -m "Deploy new release"
