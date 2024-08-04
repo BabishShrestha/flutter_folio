@@ -42,8 +42,8 @@ jobs:
 
         git clone --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo || \
         (git clone https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo && cd deploy_repo && git checkout --orphan $TARGET_BRANCH)
-        rsync -av --delete build/web/ babishshrestha.github.io/
-        cd babishshrestha.github.io
+        rsync -av --delete build/web/ deploy_repo/
+        cd deploy_repo
         git add .
         git commit -m "Deploy new release"
         git push origin $TARGET_BRANCH
