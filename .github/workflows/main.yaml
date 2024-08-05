@@ -47,7 +47,7 @@ jobs:
         git checkout $TARGET_BRANCH || git checkout -b $TARGET_BRANCH
         git remote -v
         # Sync the built web files to the cloned repo
-        rsync -av --delete ../build/web/ .
+        rsync -av --delete ../build/web/ /home/
 
         # Commit and push changes
         git add .
