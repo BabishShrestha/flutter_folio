@@ -32,12 +32,13 @@ jobs:
         # Configure Git
         git config --global user.name 'Babish Shrestha'
         git config --global user.email 'babishshrestha8@gmail.com'
+        git config --unset-all http.https://github.com/.extraheader
 
         # Clone the target repository and switch to the target branch
         git clone https://$PERSONAL_TOKEN@github.com/$TARGET_REPO.git deploy_repo
         cd deploy_repo
         git checkout $TARGET_BRANCH || git checkout -b $TARGET_BRANCH
-
+        git remote -v
         # Sync the built web files to the cloned repo
         rsync -av --delete ../build/web/ .
 
