@@ -13,7 +13,7 @@ class HomeViewDesktop extends ConsumerStatefulWidget {
   ConsumerState<HomeViewDesktop> createState() => _HomeViewDesktopState();
 }
 
-enum PortfolioView { home, about, portfolio, contact }
+enum PortfolioViewEnum { home, about, portfolio, contact }
 
 class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
   @override
@@ -156,7 +156,7 @@ class _HomeViewDesktopState extends ConsumerState<HomeViewDesktop> {
 }
 
 class CustomTextButton extends StatelessWidget {
-  final PortfolioView selectedPage;
+  final PortfolioViewEnum selectedPage;
   final bool isSelected;
   final Function()? onPressed;
 

@@ -1,7 +1,11 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ContactPage extends StatelessWidget {
   const ContactPage({
@@ -50,7 +54,7 @@ class ContactPage extends StatelessWidget {
                 ),
                 vertical: BorderSide.none),
           ),
-          child: const Column(mainAxisSize: MainAxisSize.max, children: [
+          child: Column(mainAxisSize: MainAxisSize.max, children: [
             Wrap(
               alignment: WrapAlignment.center,
               spacing: 12, // Space between items in a row
@@ -59,17 +63,32 @@ class ContactPage extends StatelessWidget {
                 CustomLabelWidget(
                   iconData: Icons.email_outlined,
                   label: 'babishshrestha8@gmail.com',
+                  onPressed: () async {
+                    final Uri emailLaunchUri = Uri(
+                      scheme: 'mailto',
+                      path: 'babishshrestha8@gmail.com',
+                      query: 'subject=Freelance Project&body=Ask Away!',
+                    );
+
+                    await checkAndLaunchUrl(emailLaunchUri);
+                  },
                 ),
                 CustomLabelWidget(
-                  iconData: Icons.phone,
-                  label: '+977-9810127060',
-                ),
+                    iconData: Icons.phone,
+                    label: '+977-9810127060',
+                    onPressed: () async {
+                      final Uri phoneLaunchUri = Uri(
+                        scheme: 'tel',
+                        path: '+9779810127060',
+                      );
+                      kIsWeb ? null : await checkAndLaunchUrl(phoneLaunchUri);
+                    }),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 12,
             ),
-            CustomLabelWidget(
+            const CustomLabelWidget(
               iconData: Icons.location_on_rounded,
               label: 'Kathmandu, Nepal',
             ),
@@ -96,20 +115,31 @@ class ContactPage extends StatelessWidget {
   }
 }
 
+Future<void> checkAndLaunchUrl(Uri uriToLaunch) async {
+  if (await canLaunchUrl(uriToLaunch)) {
+    await launchUrl(uriToLaunch);
+  } else {
+    // Handle the situation when the email client can't be opened
+    log('Could not launch $uriToLaunch');
+  }
+}
+
 class CustomLabelWidget extends StatelessWidget {
   final IconData? iconData;
-
+  final Function()? onPressed;
   final String label;
 
   const CustomLabelWidget({
     super.key,
     this.iconData,
     required this.label,
+    this.onPressed,
   });
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton.icon(
+      onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: UIColors.backgroundColor,
         shape: RoundedRectangleBorder(
@@ -120,14 +150,15 @@ class CustomLabelWidget extends StatelessWidget {
         iconData,
         color: UIColors.white,
       ),
-      label: Text(
+      // make text selectable
+
+      label: SelectableText(
         label,
         style: Theme.of(context).textTheme.bodyLarge?.copyWith(
               color: UIColors.primaryColor,
               fontWeight: FontWeight.bold,
             ),
       ),
-      onPressed: null,
     );
   }
 }

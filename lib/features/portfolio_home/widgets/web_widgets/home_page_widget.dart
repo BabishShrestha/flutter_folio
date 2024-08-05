@@ -1,6 +1,12 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
+import 'package:flutter_folio/features/portfolio_home/presentation/home_view_desktop.dart';
+import 'package:flutter_folio/features/portfolio_home/presentation/portfolio_overview_screen.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({
@@ -115,7 +121,6 @@ class HomePage extends StatelessWidget {
           ),
           const SizedBox(height: 20),
           OutlinedButton(
-            onPressed: () {},
             style: OutlinedButton.styleFrom(
               foregroundColor: UIColors.primaryColor,
               textStyle: const TextStyle(
@@ -131,6 +136,27 @@ class HomePage extends StatelessWidget {
               side: const BorderSide(color: UIColors.primaryColor, width: 2),
               padding: const EdgeInsets.all(20.0),
             ),
+            onPressed: () async {
+              // call number
+              final Uri uri = kIsWeb
+                  ? Uri(
+                      scheme: 'mailto',
+                      path: 'babishshrestha8@gmail.com',
+                      query: 'subject=Freelance Project&body=Ask Away!',
+                    )
+                  : Uri(
+                      scheme: 'tel',
+                      path: '+9779810127060',
+                    );
+              if (await canLaunchUrl(uri)) {
+                await launchUrl(uri);
+              } else {
+                log('Could not launch $uri');
+                itemScrollController.scrollTo(
+                    duration: const Duration(seconds: 1),
+                    index: PortfolioViewEnum.contact.index);
+              }
+            },
             child: const Text(
               'Contact Me',
             ),
