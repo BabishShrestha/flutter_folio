@@ -32,6 +32,13 @@ jobs:
         # Configure Git
         git config --global user.name 'Babish Shrestha'
         git config --global user.email 'babishshrestha8@gmail.com'
+        if [ -d "deploy_repo" ]; then
+          echo "Removing existing deploy_repo directory"
+          rm -rf deploy_repo
+        fi
+
+        # Clone the target repository
+        echo "Cloning $TARGET_REPO into deploy_repo"
 
         # Clone the target repository and switch to the target branch
         git clone --branch $TARGET_BRANCH https://$PERSONAL_TOKEN@github.com/$TARGET_REPO deploy_repo || \
