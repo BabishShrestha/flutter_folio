@@ -53,4 +53,4 @@ jobs:
         git add .
         git commit -m "Deploy new release"
         git config --unset-all http.https://github.com/.extraheader
-        git push origin $TARGET_BRANCH
+        git push https://$PERSONAL_TOKEN@github.com/$TARGET_REPO.git $TARGET_BRANCH
