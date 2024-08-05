@@ -53,22 +53,22 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
     ];
 
     return Scaffold(
-      appBar: AppBar(
-          title: Container(
-        alignment: Alignment.center,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: PortfolioView.values
-                .map((view) => Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                      child: _buildCustomTextButton(view, ref),
-                    ))
-                .toList(),
-          ),
-        ),
-      )),
+      // appBar: AppBar(
+      //     title: Container(
+      //   alignment: Alignment.center,
+      //   child: SingleChildScrollView(
+      //     scrollDirection: Axis.horizontal,
+      //     child: Row(
+      //       mainAxisAlignment: MainAxisAlignment.center,
+      //       children: PortfolioView.values
+      //           .map((view) => Padding(
+      //                 padding: const EdgeInsets.symmetric(horizontal: 8.0),
+      //                 child: _buildCustomTextButton(view, ref),
+      //               ))
+      //           .toList(),
+      //     ),
+      //   ),
+      // )),
       floatingActionButton: const SocialMediaWidget(),
       body: SafeArea(
         child: ScrollablePositionedList.builder(
