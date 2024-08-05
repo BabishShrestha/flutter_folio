@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/utils.dart';
-import 'package:flutter_rating_stars/flutter_rating_stars.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class AboutPage extends StatelessWidget {
   final ScrollController scrollController;
@@ -35,88 +35,89 @@ class AboutPage extends StatelessWidget {
           fit: BoxFit.cover,
           width: double.infinity,
         ),
-        const SizedBox(
-          height: 12,
-        ),
-        Text(
-          'About',
-          style: Theme.of(context)
-              .textTheme
-              .headlineLarge
-              ?.copyWith(color: UIColors.white, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        Text.rich(
-          textAlign: TextAlign.justify,
-          TextSpan(
-              text: "Namaste! I’m ",
-              style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                    color: UIColors.white,
-                  ),
-              children: [
+        Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            children: [
+              const SizedBox(
+                height: 12,
+              ),
+              Text(
+                'About',
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: UIColors.white, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Text.rich(
+                textAlign: TextAlign.left,
                 TextSpan(
-                  text: 'Babish Shrestha',
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: UIColors.primaryColor,
+                    text: "Namaste! I’m ",
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          color: UIColors.white,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: 'Babish Shrestha',
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: UIColors.primaryColor,
+                            ),
                       ),
-                ),
-                TextSpan(
-                  text:
-                      ", a mobile engineer specializing in Flutter and Unity. With a proven track record of creating seamless, intuitive apps, I prioritize exceptional user experience and innovative solutions tailored to client needs.\n\nDriven by a passion for creativity, my projects are influenced by hobbies like sketching, dancing, and making music, which fuel my ability to design visually appealing and functional applications. I am a quick learner, always eager to embrace new technologies, with a strong foundation in programming and problem-solving skills.\n\nCommitted to personal growth and mindfulness, my meditation practice and self-help reading enhance my problem-solving abilities and focus. As a team player with good communication skills, I am always ready to take on new challenges and work on exciting projects.\n\nExplore my portfolio to see how my skills and passions create exceptional mobile applications. Let’s collaborate to bring your vision to life.",
-                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                        color: UIColors.white,
+                      TextSpan(
+                        text:
+                            ", a mobile engineer specializing in Flutter and Unity. With a proven track record of creating seamless, intuitive apps, I prioritize exceptional user experience and innovative solutions tailored to client needs.\n\nDriven by a passion for creativity, my projects are influenced by hobbies like sketching, dancing, and making music, which fuel my ability to design visually appealing and functional applications. I am a quick learner, always eager to embrace new technologies, with a strong foundation in programming and problem-solving skills.\n\nCommitted to personal growth and mindfulness, my meditation practice and self-help reading enhance my problem-solving abilities and focus. As a team player with good communication skills, I am always ready to take on new challenges and work on exciting projects.\n\nExplore my portfolio to see how my skills and passions create exceptional mobile applications. Let’s collaborate to bring your vision to life.",
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                              color: UIColors.white,
+                            ),
                       ),
-                ),
-              ]),
-        ),
-        const SizedBox(
-          height: 36,
-        ),
-        Text(
-          'Skills',
-          style: Theme.of(context)
-              .textTheme
-              .headlineLarge
-              ?.copyWith(color: UIColors.white, fontWeight: FontWeight.bold),
-        ),
-        const SizedBox(
-          height: 12,
-        ),
-        CustomGridWidget(
-          scrollController: scrollController,
-          crossAxisCount: MediaQuery.of(context).size.width < 650 ? 1 : 2,
-          childAspectRatio: childAspectRatio,
-          children: formattedSkillList
-              .map(
-                (skill) => CustomRatingTitleWidget(
-                  title: skill.title,
-                  rating: skill.rating!,
-                ),
-              )
-              .toList(),
-        ),
-        const SizedBox(
-          height: 36,
-        ),
-        Text(
-          'My Tools',
-          // use text theme large
+                    ]),
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              Text(
+                'Skills',
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: UIColors.white, fontWeight: FontWeight.bold),
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              CustomGridWidget(
+                scrollController: scrollController,
+                crossAxisCount: MediaQuery.of(context).size.width < 650 ? 1 : 2,
+                childAspectRatio: childAspectRatio,
+                children: formattedSkillList
+                    .map(
+                      (skill) => CustomRatingTitleWidget(
+                        title: skill.title,
+                        rating: skill.rating!,
+                      ),
+                    )
+                    .toList(),
+              ),
+              const SizedBox(
+                height: 36,
+              ),
+              Text(
+                'My Tools',
+                // use text theme large
 
-          style: Theme.of(context)
-              .textTheme
-              .headlineLarge
-              ?.copyWith(color: UIColors.white, fontWeight: FontWeight.bold),
-        ),
-        CustomGridWidget(
-          scrollController: scrollController,
-          children: formattedSkillList
-              .map((skill) => CustomTabWidget(
-                    title: skill.title,
-                    imagePath: skill.imagePath,
-                  ))
-              .toList(),
+                style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                    color: UIColors.white, fontWeight: FontWeight.bold),
+              ),
+              CustomGridWidget(
+                scrollController: scrollController,
+                children: formattedSkillList
+                    .map((skill) => CustomTabWidget(
+                          title: skill.title,
+                          imagePath: skill.imagePath,
+                        ))
+                    .toList(),
+              ),
+            ],
+          ),
         ),
       ],
     );
@@ -134,39 +135,67 @@ class CustomRatingTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: Theme.of(context)
-                .textTheme
-                .bodyLarge
-                ?.copyWith(color: UIColors.white, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(
-            width: 12,
-          ),
-          SizedBox(
-            height: 24,
-            child: RatingStars(
-              value: rating,
-              starBuilder: (index, color) => Icon(
-                Icons.star_rounded,
-                color: color,
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        double fontSize =
+            constraints.maxWidth * 0.05; // Adjust font size based on width
+        double ratingBarSize =
+            constraints.maxWidth * 0.1; // Adjust rating bar size based on width
+
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              title,
+              style: TextStyle(
+                fontSize: fontSize.clamp(
+                    8.0, 16.0), // Clamp font size to a reasonable range
+                color: UIColors.white,
+                fontWeight: FontWeight.bold,
               ),
-              starCount: 5,
-              maxValue: 5,
-              valueLabelVisibility: true,
-              animationDuration: const Duration(milliseconds: 1000),
-              starOffColor: const Color(0xffe7e8ea),
-              starColor: Colors.yellow,
             ),
-          ),
-        ],
-      ),
+            const SizedBox(
+              width: 12,
+            ),
+            Container(
+              height: ratingBarSize.clamp(
+                  10.0, 24), // Clamp height to a reasonable range
+
+              decoration: BoxDecoration(
+                color: UIColors.buttonUnSelectedColor,
+                borderRadius: BorderRadius.circular(24),
+              ),
+              margin: const EdgeInsets.only(right: 12),
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Text(
+                rating.toStringAsPrecision(2),
+                style: TextStyle(
+                  fontSize: fontSize.clamp(
+                      10.0, 18.0), // Clamp font size to a reasonable range
+                  color: UIColors.white,
+                  // fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            RatingBar.builder(
+              initialRating: rating,
+              direction: Axis.horizontal,
+              allowHalfRating: true,
+              itemCount: 5,
+              itemBuilder: (context, _) => const Icon(
+                Icons.star,
+                color: Colors.amber,
+              ),
+              itemSize: ratingBarSize.clamp(
+                  10.0, 24), // Clamp item size to a reasonable range
+              onRatingUpdate: (rating) {
+                //  print(rating);
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }

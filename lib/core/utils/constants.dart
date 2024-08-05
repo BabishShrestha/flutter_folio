@@ -3,7 +3,7 @@ import 'package:flutter_folio/features/portfolio_home/domain/model/skill_model.d
 
 var skillList = [
   {'title': 'Flutter', 'imagePath': UiImagePath.flutter, 'rating': 4.5},
-  {'title': 'Dart', 'imagePath': UiImagePath.dart, 'rating': 4},
+  {'title': 'Dart', 'imagePath': UiImagePath.dart, 'rating': 4.0},
   {'title': 'Unity', 'imagePath': UiImagePath.unityWhite, 'rating': 3.0},
   {'title': 'C#', 'imagePath': UiImagePath.cSharp, 'rating': 3.0},
   {'title': 'Firebase', 'imagePath': UiImagePath.firebase, 'rating': 3.5},
