@@ -26,7 +26,7 @@ jobs:
     - name: Deploy to Another Repo
       env:
         TARGET_REPO:  BabishShrestha/babishshrestha.github.io  # Replace with your target repo
-        TARGET_BRANCH: main  # The branch you want to deploy to in the target repo
+        TARGET_BRANCH: deploy_repo  # The branch you want to deploy to in the target repo
         PERSONAL_TOKEN: ${{ secrets.PERSONAL_ACCESS_TOKEN }}  # Your GitHub token
       run: |
         # Configure Git
