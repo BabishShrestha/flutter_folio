@@ -92,7 +92,6 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
           ],
         ),
       )),
-      floatingActionButton: const SocialMediaWidget(),
       body: SafeArea(
         child: ScrollablePositionedList.builder(
           itemCount: children.length,
@@ -103,6 +102,7 @@ class _FlutterFolioHomeState extends ConsumerState<FlutterFolioHome> {
           },
         ),
       ),
+      floatingActionButton: const SocialMediaWidget(),
     );
   }
 
