@@ -21,12 +21,12 @@ class UiImagePath {
   static const String vscode = 'assets/images/logo/programming/vscode.png';
   static const String dart = 'assets/images/logo/programming/dart.webp';
 
+  static const String logo = 'assets/images/logo/icon.png';
   static const String sortYourBinLogo = 'assets/images/sortyourbin_logo.png';
 
   static const String facebookWhite =
       'assets/images/logo/social_media/facebook_white.png';
-  static const String instagramWhite =
-      'assets/images/logo/social_media/instagram_white.png';
+  static const String github = 'assets/images/logo/social_media/github.png';
   static const String linkedinWhite =
       'assets/images/logo/social_media/linkedin_white.png';
   static const String about = 'assets/images/about.png';
