@@ -96,7 +96,8 @@ class HomePage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: UIColors.primaryColor,
-                    fontSize: MediaQuery.of(context).size.width * 0.04,
+                    fontSize: (MediaQuery.of(context).size.width * 0.04)
+                        .clamp(20, 40),
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -109,7 +110,8 @@ class HomePage extends StatelessWidget {
             textAlign: TextAlign.center,
             style: TextStyle(
               color: UIColors.white,
-              fontSize: MediaQuery.of(context).size.width * 0.02,
+              fontSize:
+                  (MediaQuery.of(context).size.width * 0.02).clamp(14, 40),
               fontWeight: FontWeight.bold,
             ),
           ),
