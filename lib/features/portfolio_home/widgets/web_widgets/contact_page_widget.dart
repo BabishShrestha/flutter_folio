@@ -1,8 +1,8 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_folio/core/utils/colors_ui.dart';
 import 'package:flutter_folio/core/utils/image_path.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -81,7 +81,13 @@ class ContactPage extends StatelessWidget {
                         scheme: 'tel',
                         path: '+9779810127060',
                       );
-                      kIsWeb ? null : await checkAndLaunchUrl(phoneLaunchUri);
+                      // check if mobile
+
+                      if ( (Platform.isAndroid || Platform.isIOS)) {
+                        await checkAndLaunchUrl(phoneLaunchUri);
+                      } else {
+                        log('Phone call not supported on this platform');
+                      }
                     }),
               ],
             ),
