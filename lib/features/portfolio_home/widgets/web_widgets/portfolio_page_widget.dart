@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_folio/core/utils/utils.dart';
 import 'package:flutter_folio/features/portfolio_home/widgets/web_widgets/web_widgets.dart';
@@ -29,9 +31,13 @@ class PortfolioPage extends StatelessWidget {
           scrollController: scrollController,
           children: formattedProjectList
               .map((project) => CustomTabWidget(
-                    title: project.title,
-                    imagePath: project.imagePath,
-                  ))
+                  title: project.title,
+                  imagePath: project.imagePath,
+                  onHover: (isHovering) {
+                    if (isHovering) {
+                      log('Hovering on ${project.title}');
+                    }
+                  }))
               .toList(),
         ),
         Text(

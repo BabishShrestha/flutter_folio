@@ -249,44 +249,90 @@ class CustomGridWidget extends StatelessWidget {
 class CustomTabWidget extends StatelessWidget {
   final String title;
   final String imagePath;
+  final Function(bool)? onHover;
   const CustomTabWidget({
     super.key,
     required this.title,
     required this.imagePath,
+    this.onHover,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(12.0),
-      padding: const EdgeInsets.all(12.0),
-      decoration: BoxDecoration(
-        color: UIColors.foregroundColor,
-        borderRadius: BorderRadius.circular(8.0),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Expanded(
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                imagePath,
-              ),
+    double screenWidth = MediaQuery.of(context).size.width;
+    double scale = 1.2;
+
+    if (screenWidth < 650) {
+      // Mobile
+      scale = 3;
+    } else if (screenWidth < 1200) {
+      // Tablet
+      scale = 2;
+    } else {
+      // Desktop and larger screens
+      scale = 1.2; // Adjust as needed for larger screens
+    }
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onHover: onHover,
+        child: Opacity(
+          opacity: 0.7,
+          child: Container(
+            margin: const EdgeInsets.all(12.0),
+            padding: const EdgeInsets.all(12.0),
+            decoration: BoxDecoration(
+              color: UIColors.foregroundColor,
+              borderRadius: BorderRadius.circular(8.0),
+            ),
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: BorderRadius.circular(8),
+                        child: Image.asset(
+                          imagePath,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      title,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                            color: UIColors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                    ),
+                  ],
+                ),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Wrap(
+                    spacing: 8,
+                    runSpacing: 8,
+                    children: [
+                      Image.asset(
+                        'assets/images/logo/google_play.png',
+                        scale: scale,
+                      ),
+                      Image.asset(
+                        'assets/images/logo/app_store.png',
+                        scale: scale,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
-          const SizedBox(
-            height: 24,
-          ),
-          Text(
-            title,
-            overflow: TextOverflow.ellipsis,
-            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
-                  color: UIColors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-        ],
+        ),
       ),
     );
   }
